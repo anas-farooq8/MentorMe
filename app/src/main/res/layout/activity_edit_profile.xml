@@ -133,7 +133,7 @@
             android:layout_margin="20dp"
             android:autofillHints="phone"
             android:background="@drawable/input_fields"
-            android:text="+92 321 2242022"
+            android:text="+92 321 2242023"
             android:inputType="phone"
             android:textColor="@color/black"
             android:textSize="15sp"
