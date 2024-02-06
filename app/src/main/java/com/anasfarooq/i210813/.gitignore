@@ -1,8 +1,9 @@
 /ForgotPasswordActivity.kt
 # /LoginActivity.kt
 # /MainActivity.kt
-/ProfileActivity.kt
+# /ProfileActivity.kt
 # /ResetPasswordActivity.kt
 /ReviewActivity.kt
 /SignupActivity.kt
 /VerifyPhoneActivity.kt
+/BookSessionActivity.kt
