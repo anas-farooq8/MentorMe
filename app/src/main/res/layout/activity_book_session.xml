@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BookSessionActivity"
+    android:background="#DEF8F8">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3.5"
+        android:background="@drawable/bottom_right_left_borders"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.35"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <View
+            android:id="@+id/backBtn"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="48dp"
+            android:alpha="1"
+            android:background="@drawable/back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/hi_i_m"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/backBtn"
+            app:layout_constraintTop_toBottomOf="@+id/backBtn" />
+
+        <TextView
+            android:id="@+id/Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="John Cooper"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/textView13"
+            app:layout_constraintTop_toBottomOf="@+id/textView13" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="24dp"
+            android:alpha="1"
+            android:background="@drawable/circle"
+            android:importantForAccessibility="no"
+            android:padding="8dp"
+            android:src="@drawable/john_cooper"
+            app:layout_constraintBottom_toBottomOf="@+id/Name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView13"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/star"
+            app:layout_constraintBottom_toBottomOf="@+id/textView21"
+            app:layout_constraintStart_toStartOf="@+id/Name"
+            app:layout_constraintTop_toTopOf="@+id/textView21"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/textView21"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="4.8"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/strokeView"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/Name"
+            app:layout_constraintVertical_bias="0.6" />
+
+        <View
+            android:id="@+id/strokeView"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="50dp"
+            android:alpha="0.4"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/Name"
+            app:layout_constraintStart_toStartOf="@+id/Name" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$1500/Session"
+            android:textColor="#FFC90A"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/Name"
+            app:layout_constraintTop_toBottomOf="@+id/strokeView" />
+
+        <FrameLayout
+            android:id="@+id/buttonMessageContainer"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circle_yellow"
+            app:layout_constraintBottom_toBottomOf="@+id/textView22"
+            app:layout_constraintEnd_toStartOf="@+id/buttonCallContainer"
+            app:layout_constraintTop_toTopOf="@+id/textView22">
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:gravity="center"
+                android:src="@drawable/ic_message" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/buttonCallContainer"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/circle_yellow"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonMessageContainer"
+            app:layout_constraintEnd_toStartOf="@+id/buttonVideoCallContainer"
+            app:layout_constraintTop_toTopOf="@+id/buttonMessageContainer">
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:gravity="center"
+                android:src="@drawable/ic_call" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/buttonVideoCallContainer"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="24dp"
+            android:background="@drawable/circle_yellow"
+            app:layout_constraintBottom_toBottomOf="@+id/buttonCallContainer"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/buttonCallContainer">
+
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:background="@android:color/transparent"
+                android:padding="8dp"
+                android:src="@drawable/ic_video_call" />
+        </FrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="6.5"
+        app:layout_constraintHeight_percent="0.65"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.0">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@+id/bookAppointment"
+            app:layout_constraintStart_toStartOf="@+id/textView"
+            app:layout_constraintTop_toBottomOf="@+id/textView">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/appointment_time_btn"
+                    android:text="10.00 AM"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toStartOf="@+id/button2"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/appointment_time_btn"
+                    android:text="11.00 AM"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toStartOf="@+id/button3"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/button1" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/appointment_time_btn"
+                    android:text="12.00 PM"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/button2" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_weight="1"
+                    android:textColor="@color/black"
+                    android:background="@drawable/appointment_time_btn"
+                    android:text="01.00 PM"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/button3" />
+
+            </LinearLayout>
+        </HorizontalScrollView>
+
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:elevation="20dp"
+            android:theme="@style/AppTheme.Calendar"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:text="Available Time Slots"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/calendarView" />
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/bookAppointment"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/btn_style"
+            android:elevation="20dp"
+            android:gravity="center"
+            android:progressBackgroundTint="@color/white"
+            android:text="Book an Appointment"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
