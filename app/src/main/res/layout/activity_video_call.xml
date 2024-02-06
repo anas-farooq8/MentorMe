@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AudioCallActivity"
+    tools:context=".VideoCallActivity"
     android:background="#DEF8F8">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,42 +21,28 @@
         android:background="#CCCCCC">
 
         <TextView
-            android:id="@+id/Name"
+            android:id="@+id/time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
-            android:text="John Cooper"
+            android:text="50:00"
             android:textColor="@color/black"
-            android:textSize="25sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="50:00"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/Name"
-            app:layout_constraintStart_toStartOf="@+id/Name"
-            app:layout_constraintTop_toBottomOf="@+id/Name" />
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginTop="48dp"
-            android:alpha="1"
-            android:background="@drawable/circle"
-            android:importantForAccessibility="no"
-            android:src="@drawable/john_cooper"
-            app:layout_constraintEnd_toEndOf="@+id/Name"
-            app:layout_constraintStart_toStartOf="@+id/Name"
-            app:layout_constraintTop_toBottomOf="@+id/Name" />
+        <androidx.cardview.widget.CardView
+            android:layout_width="140dp"
+            android:layout_height="160dp"
+            android:layout_marginEnd="24dp"
+            android:elevation="20dp"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="12dp"
+            app:cardBackgroundColor="#F1F1F1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -84,7 +70,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/speaker"
             app:layout_constraintEnd_toStartOf="@+id/speaker"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/speaker"
             android:importantForAccessibility="no" />
@@ -93,10 +78,10 @@
             android:id="@+id/speaker"
             android:layout_width="42dp"
             android:layout_height="42dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/round_audio_btn"
             android:padding="8dp"
-            android:src="@drawable/ic_speaker"
+            android:src="@drawable/ic_video_off"
             app:layout_constraintEnd_toStartOf="@+id/pause"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/microphoneIcon"
@@ -109,9 +94,9 @@
             android:layout_height="42dp"
             android:background="@drawable/round_audio_btn"
             android:padding="8dp"
-            android:src="@drawable/ic_pause"
+            android:src="@drawable/ic_repeat"
             app:layout_constraintBottom_toBottomOf="@+id/speaker"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/close"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/speaker"
             app:layout_constraintTop_toTopOf="@+id/speaker"
@@ -121,15 +106,16 @@
             android:id="@+id/close"
             android:layout_width="42dp"
             android:layout_height="42dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/circle_red"
             android:padding="8dp"
             android:src="@drawable/ic_close_white"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/pause"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/speaker"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/pause"
+            app:layout_constraintTop_toTopOf="@+id/pause"
             android:importantForAccessibility="no" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
