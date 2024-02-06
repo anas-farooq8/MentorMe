@@ -7,5 +7,7 @@ class ResetPasswordActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_reset_password)
+
+        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
     }
 }

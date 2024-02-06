@@ -49,4 +49,6 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="about_me">About Me</string>
     <string name="my_expertise_include">My Expertise Include</string>
+    <string name="clear_all">Clear All</string>
+    <string name="notifications">Notifications</string>
 </resources>

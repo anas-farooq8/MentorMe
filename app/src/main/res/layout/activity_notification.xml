@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#DEF8F8"
+    tools:context=".NotificationActivity"
+    tools:layout_editor_absoluteX="-9dp"
+    tools:layout_editor_absoluteY="18dp">
+
+    <View
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="-50dp"
+        android:alpha="1"
+        android:background="@drawable/circle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="-50dp"
+        android:alpha="0.6"
+        android:background="@drawable/circle_2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/backBtn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="92dp"
+        android:alpha="1"
+        android:background="@drawable/back_arrow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_bell"
+        android:drawablePadding="8dp"
+        android:text="@string/notifications"
+        android:textColor="@color/dark_cyan"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/backBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/backBtn"
+        app:layout_constraintTop_toTopOf="@+id/backBtn"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/dropReviewBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="45dp"
+        android:layout_marginEnd="24dp"
+        android:gravity="center"
+        android:text="@string/clear_all"
+        android:textAllCaps="false"
+        android:textColor="@color/yellow"
+        android:background="@android:color/transparent"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/view"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dropReviewBtn">
+
+        <LinearLayout
+            android:id="@+id/rowsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/notification1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:inputType="textMultiLine"
+                android:drawableEnd="@drawable/ic_close"
+                android:textColor="@color/black"
+                android:gravity="start"
+                android:textSize="15sp"
+                android:text="You have added a mentor, Alex. Thank you!"/>
+
+            <TextView
+                android:id="@+id/notification2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:inputType="textMultiLine"
+                android:drawableEnd="@drawable/ic_close"
+                android:textColor="@color/black"
+                android:gravity="start"
+                android:textSize="15sp"
+                android:text="Your favorites list is expanding. Impressive"/>
+
+            <TextView
+                android:id="@+id/notification3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:inputType="textMultiLine"
+                android:drawableEnd="@drawable/ic_close"
+                android:textColor="@color/black"
+                android:gravity="start"
+                android:textSize="15sp"
+                android:text="You have a new message in community. 👀"/>
+
+            <TextView
+                android:id="@+id/notification4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:inputType="textMultiLine"
+                android:drawableEnd="@drawable/ic_close"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:gravity="start"
+                android:text="Your favorite mentor is Online. Say Hi to him."/>
+
+            <TextView
+                android:id="@+id/notification5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:textSize="15sp"
+                android:inputType="textMultiLine"
+                android:drawableEnd="@drawable/ic_close"
+                android:textColor="@color/black"
+                android:gravity="start"
+                android:text="Thank you for booking a session. Good Luck."/>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

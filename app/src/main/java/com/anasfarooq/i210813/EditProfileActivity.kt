@@ -3,11 +3,12 @@ package com.anasfarooq.i210813
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class ProfileActivity : AppCompatActivity() {
+class EditProfileActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        setContentView(R.layout.activity_edit_profile)
 
-        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+        //window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+
     }
 }

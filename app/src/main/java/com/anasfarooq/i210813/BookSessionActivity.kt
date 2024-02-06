@@ -11,6 +11,8 @@ class BookSessionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_session)
 
+        //window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+
         val calendarView = findViewById<CalendarView>(R.id.calendarView)
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->
             // month is 0-based, so add 1 for the actual month

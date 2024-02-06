@@ -153,7 +153,6 @@
             android:id="@+id/sendBtn"
             android:layout_width="160dp"
             android:layout_height="35dp"
-            android:layout_marginTop="8dp"
             android:background="@drawable/btn_style"
             android:elevation="20dp"
             android:gravity="center"
@@ -161,6 +160,7 @@
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout4" />
@@ -169,10 +169,10 @@
             android:id="@+id/constraintLayout5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sendBtn">
+            app:layout_constraintStart_toStartOf="parent">
 
             <TextView
                 android:id="@+id/sendAgain"
@@ -185,8 +185,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/time"
@@ -223,11 +222,11 @@
             android:id="@+id/button1"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/rounded_key_background"
             android:text="1"
-            android:textSize="32sp"
             android:textColor="@color/white"
+            android:textSize="32sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/button2"
             app:layout_constraintHorizontal_chainStyle="spread"
