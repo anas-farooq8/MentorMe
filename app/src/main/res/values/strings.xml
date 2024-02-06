@@ -51,4 +51,5 @@
     <string name="my_expertise_include">My Expertise Include</string>
     <string name="clear_all">Clear All</string>
     <string name="notifications">Notifications</string>
+    <string name="booked_sessions">Booked Sessions</string>
 </resources>
