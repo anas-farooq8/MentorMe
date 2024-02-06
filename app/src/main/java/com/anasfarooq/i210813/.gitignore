@@ -2,6 +2,7 @@
 # /LoginActivity.kt
 # /MainActivity.kt
 /ProfileActivity.kt
-/ResetPasswordActivity.kt
+# /ResetPasswordActivity.kt
 /ReviewActivity.kt
 /SignupActivity.kt
+/VerifyPhoneActivity.kt

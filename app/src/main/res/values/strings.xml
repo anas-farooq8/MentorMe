@@ -48,4 +48,5 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="about_me">About Me</string>
+    <string name="my_expertise_include">My Expertise Include</string>
 </resources>
