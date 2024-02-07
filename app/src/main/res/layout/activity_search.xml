@@ -382,8 +382,8 @@
 
     <ImageView
         android:id="@+id/homeIc"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/searchIc"
@@ -395,8 +395,8 @@
 
     <ImageView
         android:id="@+id/searchIc"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         app:layout_constraintBottom_toTopOf="@+id/textView147"
         app:layout_constraintEnd_toStartOf="@+id/chatIc"
         app:layout_constraintHorizontal_bias="0.5"
@@ -406,8 +406,8 @@
 
     <ImageView
         android:id="@+id/chatIc"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         app:layout_constraintBottom_toTopOf="@+id/searchIcon"
         app:layout_constraintEnd_toStartOf="@+id/accountIc"
         app:layout_constraintHorizontal_bias="0.5"
@@ -417,8 +417,8 @@
 
     <ImageView
         android:id="@+id/accountIc"
-        android:layout_width="33dp"
-        android:layout_height="33dp"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="@+id/chatIc"
         app:layout_constraintEnd_toEndOf="parent"

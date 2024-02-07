@@ -70,4 +70,5 @@
     <string name="personal_growth">Personal Growth</string>
     <string name="education">Education</string>
     <string name="recent_searches">Recent Searches</string>
+    <string name="type_something">Type something ...</string>
 </resources>

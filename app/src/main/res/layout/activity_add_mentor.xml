@@ -297,7 +297,8 @@
             android:background="#157177"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            android:importantForAccessibility="no" />
 
         <ImageView
             android:id="@+id/imageView13"
@@ -308,7 +309,8 @@
             app:layout_constraintEnd_toEndOf="@+id/bottomNavBar"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="@+id/bottomNavBar"
-            app:srcCompat="@drawable/circle2" />
+            app:srcCompat="@drawable/circle2"
+            android:importantForAccessibility="no" />
 
         <ImageView
             android:id="@+id/white_circle"
@@ -318,7 +320,8 @@
             app:layout_constraintEnd_toEndOf="@+id/imageView13"
             app:layout_constraintStart_toStartOf="@+id/imageView13"
             app:layout_constraintTop_toTopOf="@+id/imageView13"
-            app:srcCompat="@drawable/circle5" />
+            app:srcCompat="@drawable/circle5"
+            android:importantForAccessibility="no" />
 
         <TextView
             android:id="@+id/textView16"
@@ -384,8 +387,8 @@
 
         <ImageView
             android:id="@+id/homeIc"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toStartOf="@+id/searchIc"
@@ -393,41 +396,45 @@
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/bottomNavBar"
-            app:srcCompat="@drawable/ic_home" />
+            app:srcCompat="@drawable/ic_home"
+            android:importantForAccessibility="no" />
 
         <ImageView
             android:id="@+id/searchIc"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             app:layout_constraintBottom_toTopOf="@+id/textView147"
             app:layout_constraintEnd_toStartOf="@+id/chatIc"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/homeIc"
             app:layout_constraintTop_toTopOf="@+id/homeIc"
-            app:srcCompat="@drawable/ic_search" />
+            app:srcCompat="@drawable/ic_search"
+            android:importantForAccessibility="no" />
 
         <ImageView
             android:id="@+id/chatIc"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             app:layout_constraintBottom_toTopOf="@+id/searchIcon"
             app:layout_constraintEnd_toStartOf="@+id/accountIc"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/searchIc"
             app:layout_constraintTop_toTopOf="@+id/searchIc"
-            app:srcCompat="@drawable/ic_chat" />
+            app:srcCompat="@drawable/ic_chat"
+            android:importantForAccessibility="no" />
 
         <ImageView
             android:id="@+id/accountIc"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="@+id/chatIc"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/chatIc"
             app:layout_constraintTop_toTopOf="@+id/chatIc"
-            app:srcCompat="@drawable/ic_account" />
+            app:srcCompat="@drawable/ic_account"
+            android:importantForAccessibility="no" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

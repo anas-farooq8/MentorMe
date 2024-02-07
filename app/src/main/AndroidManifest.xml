@@ -13,7 +13,7 @@
         android:theme="@style/Theme.I210813"
         tools:targetApi="31">
         <activity
-            android:name=".SearchActivity"
+            android:name=".ChatActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,16 +22,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".VideoScreenActivity"
+            android:name=".SearchActivity"
             android:exported="true">
+
         </activity>
         <activity
-            android:name=".PhotoScreenActivity"
+            android:name=".VideoScreenActivity"
             android:exported="true"></activity>
         <activity
+            android:name=".PhotoScreenActivity"
+            android:exported="true" />
+        <activity
             android:name=".SearchResultActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".AddMentorActivity"
             android:exported="true" />
