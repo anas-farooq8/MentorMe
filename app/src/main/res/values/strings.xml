@@ -62,7 +62,7 @@
     <string name="hdr">HDR</string>
     <string name="photo">Photo</string>
     <string name="square">Square</string>
-    <string name="potrait">Potrait</string>
+    <string name="portrait">Portrait</string>
     <string name="video">Video</string>
     <string name="slo_mo">Slo-mo</string>
 </resources>
