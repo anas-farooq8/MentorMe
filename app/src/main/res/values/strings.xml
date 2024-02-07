@@ -52,4 +52,6 @@
     <string name="clear_all">Clear All</string>
     <string name="notifications">Notifications</string>
     <string name="booked_sessions">Booked Sessions</string>
+    <string name="help_us_expand">Help us expand!</string>
+    <string name="add_new_mentor">Add New Mentor</string>
 </resources>
