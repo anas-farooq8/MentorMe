@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <application
         android:allowBackup="true"
@@ -11,9 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.I210813"
-        tools:targetApi="31" >
+        tools:targetApi="31">
         <activity
-            android:name=".VideoScreenActivity"
+            android:name=".SearchActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,12 +22,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PhotoScreenActivity"
-            android:exported="true" >
+            android:name=".VideoScreenActivity"
+            android:exported="true">
         </activity>
         <activity
+            android:name=".PhotoScreenActivity"
+            android:exported="true"></activity>
+        <activity
             android:name=".SearchResultActivity"
-            android:exported="true" >
+            android:exported="true">
         </activity>
         <activity
             android:name=".AddMentorActivity"

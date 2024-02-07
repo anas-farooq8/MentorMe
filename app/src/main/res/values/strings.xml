@@ -65,4 +65,9 @@
     <string name="portrait">Portrait</string>
     <string name="video">Video</string>
     <string name="slo_mo">Slo-mo</string>
+    <string name="browse_categories">Browse Categories</string>
+    <string name="entrepreneurship">Entrepreneurship</string>
+    <string name="personal_growth">Personal Growth</string>
+    <string name="education">Education</string>
+    <string name="recent_searches">Recent Searches</string>
 </resources>

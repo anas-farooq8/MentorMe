@@ -187,8 +187,6 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </FrameLayout>
-
-
         <TextView
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
