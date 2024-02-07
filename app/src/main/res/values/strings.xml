@@ -54,4 +54,9 @@
     <string name="booked_sessions">Booked Sessions</string>
     <string name="help_us_expand">Help us expand!</string>
     <string name="add_new_mentor">Add New Mentor</string>
+    <string name="chat">Chat</string>
+    <string name="search">Search</string>
+    <string name="profile">Profile</string>
+    <string name="add">+</string>
+    <string name="search_results">Search Results</string>
 </resources>
