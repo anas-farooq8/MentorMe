@@ -14,6 +14,13 @@ class LoginActivity : AppCompatActivity() {
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
 
+        val loginBtn: TextView = findViewById(R.id.loginBtn)
+
+        loginBtn.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+        }
+
         val signupBtn: TextView = findViewById(R.id.signupBtn)
         signupBtn.paintFlags = signupBtn.paintFlags or Paint.UNDERLINE_TEXT_FLAG
 

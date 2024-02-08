@@ -74,4 +74,10 @@
     <string name="chats">Chats</string>
     <string name="my_community">My Community</string>
     <string name="all_messages">All Messages</string>
+    <string name="hello">Hello,</string>
+    <string name="character">Character</string>
+    <string name="ready_for_mentorship_let_s_begin_the_journey">Ready for mentorship? Let’s begin the journey!</string>
+    <string name="all">All</string>
+    <string name="top_mentors_for_you">Top Mentors for you</string>
+    <string name="view_all">View All</string>
 </resources>

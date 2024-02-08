@@ -5,15 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 
-class SearchActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search)
+        setContentView(R.layout.activity_home)
 
-
-        val homeBtn: ImageView = findViewById(R.id.homeBtn)
-        homeBtn.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
+        val searchBtn: ImageView = findViewById(R.id.searchBtn)
+        searchBtn.setOnClickListener {
+            val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
             finish()
         }
@@ -24,5 +23,14 @@ class SearchActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
+/*        val accountBtn: ImageView = findViewById(R.id.accountBtn)
+        accountBtn.setOnClickListener {
+            val intent = Intent(this, ::class.java)
+            startActivity(intent)
+            finish()
+        }*/
+
+
     }
 }

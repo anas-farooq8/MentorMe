@@ -400,9 +400,9 @@
             android:scaleY="0.8"
             android:text="Search"
             android:textColor="#51A8A6"
-            app:layout_constraintEnd_toEndOf="@+id/searchIc"
-            app:layout_constraintStart_toStartOf="@+id/searchIc"
-            app:layout_constraintTop_toBottomOf="@+id/searchIc" />
+            app:layout_constraintEnd_toEndOf="@+id/searchBtn"
+            app:layout_constraintStart_toStartOf="@+id/searchBtn"
+            app:layout_constraintTop_toBottomOf="@+id/searchBtn" />
 
         <TextView
             android:id="@+id/textView17"
@@ -412,9 +412,9 @@
             android:scaleY="0.8"
             android:text="Chat"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@+id/chatIc"
-            app:layout_constraintStart_toStartOf="@+id/chatIc"
-            app:layout_constraintTop_toBottomOf="@+id/chatIc" />
+            app:layout_constraintEnd_toEndOf="@+id/chatBtn"
+            app:layout_constraintStart_toStartOf="@+id/chatBtn"
+            app:layout_constraintTop_toBottomOf="@+id/chatBtn" />
 
         <TextView
             android:id="@+id/profileIcon"
@@ -425,9 +425,9 @@
             android:scaleY="0.8"
             android:text="Profile"
             android:textColor="#51A8A6"
-            app:layout_constraintEnd_toEndOf="@+id/accountIc"
-            app:layout_constraintStart_toStartOf="@+id/accountIc"
-            app:layout_constraintTop_toBottomOf="@+id/accountIc" />
+            app:layout_constraintEnd_toEndOf="@+id/accountBtn"
+            app:layout_constraintStart_toStartOf="@+id/accountBtn"
+            app:layout_constraintTop_toBottomOf="@+id/accountBtn" />
 
         <TextView
             android:id="@+id/textView147"
@@ -437,18 +437,18 @@
             android:scaleY="0.8"
             android:text="Home"
             android:textColor="#51A8A6"
-            app:layout_constraintEnd_toEndOf="@+id/homeIc"
-            app:layout_constraintStart_toStartOf="@+id/homeIc"
-            app:layout_constraintTop_toBottomOf="@+id/homeIc" />
+            app:layout_constraintEnd_toEndOf="@+id/homeBtn"
+            app:layout_constraintStart_toStartOf="@+id/homeBtn"
+            app:layout_constraintTop_toBottomOf="@+id/homeBtn" />
 
         <ImageView
-            android:id="@+id/homeIc"
+            android:id="@+id/homeBtn"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:importantForAccessibility="no"
-            app:layout_constraintEnd_toStartOf="@+id/searchIc"
+            app:layout_constraintEnd_toStartOf="@+id/searchBtn"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="spread_inside"
             app:layout_constraintStart_toStartOf="parent"
@@ -456,40 +456,40 @@
             app:srcCompat="@drawable/ic_home" />
 
         <ImageView
-            android:id="@+id/searchIc"
+            android:id="@+id/searchBtn"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:importantForAccessibility="no"
             app:layout_constraintBottom_toTopOf="@+id/textView147"
-            app:layout_constraintEnd_toStartOf="@+id/chatIc"
+            app:layout_constraintEnd_toStartOf="@+id/chatBtn"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/homeIc"
-            app:layout_constraintTop_toTopOf="@+id/homeIc"
+            app:layout_constraintStart_toEndOf="@+id/homeBtn"
+            app:layout_constraintTop_toTopOf="@+id/homeBtn"
             app:srcCompat="@drawable/ic_search" />
 
         <ImageView
-            android:id="@+id/chatIc"
+            android:id="@+id/chatBtn"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:importantForAccessibility="no"
             app:layout_constraintBottom_toTopOf="@+id/searchIcon"
-            app:layout_constraintEnd_toStartOf="@+id/accountIc"
+            app:layout_constraintEnd_toStartOf="@+id/accountBtn"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/searchIc"
-            app:layout_constraintTop_toTopOf="@+id/searchIc"
+            app:layout_constraintStart_toEndOf="@+id/searchBtn"
+            app:layout_constraintTop_toTopOf="@+id/searchBtn"
             app:srcCompat="@drawable/ic_chat_white" />
 
         <ImageView
-            android:id="@+id/accountIc"
+            android:id="@+id/accountBtn"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="16dp"
             android:importantForAccessibility="no"
-            app:layout_constraintBottom_toBottomOf="@+id/chatIc"
+            app:layout_constraintBottom_toBottomOf="@+id/chatBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/chatIc"
-            app:layout_constraintTop_toTopOf="@+id/chatIc"
+            app:layout_constraintStart_toEndOf="@+id/chatBtn"
+            app:layout_constraintTop_toTopOf="@+id/chatBtn"
             app:srcCompat="@drawable/ic_account" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
