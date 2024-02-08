@@ -14,9 +14,10 @@ class SignupActivity : AppCompatActivity() {
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
 
-        val signupBtn: TextView = findViewById(R.id.signupBtn)
+        val signupBtn: Button = findViewById(R.id.signupBtn)
+
         signupBtn.setOnClickListener {
-            val intent = Intent(this, HomeActivity::class.java)
+            val intent = Intent(this, VerifyPhoneActivity::class.java)
             startActivity(intent)
         }
 

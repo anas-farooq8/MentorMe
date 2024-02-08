@@ -3,12 +3,20 @@ package com.anasfarooq.i210813
 import android.graphics.Paint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 
 class NotificationActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notification)
+
+        val backBtn: View = findViewById(R.id.backBtn)
+        backBtn.setOnClickListener {
+            finish()
+        }
+
+
 
         val notification1: TextView = findViewById(R.id.notification1)
         notification1.paintFlags = notification1.paintFlags or Paint.UNDERLINE_TEXT_FLAG

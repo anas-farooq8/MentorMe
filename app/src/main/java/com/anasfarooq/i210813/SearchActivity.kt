@@ -3,6 +3,8 @@ package com.anasfarooq.i210813
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 
 class SearchActivity : AppCompatActivity() {
@@ -22,6 +24,27 @@ class SearchActivity : AppCompatActivity() {
         chatBtn.setOnClickListener {
             val intent = Intent(this, AllChatsActivity::class.java)
             startActivity(intent)
+            finish()
+        }
+
+        val accountBtn: ImageView = findViewById(R.id.accountBtn)
+        accountBtn.setOnClickListener {
+            val intent = Intent(this, MyProfileActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        val searchBtn: EditText = findViewById(R.id.searchField)
+        searchBtn.setOnClickListener {
+            val intent = Intent(this, SearchResultActivity::class.java)
+            startActivity(intent)
+        }
+
+
+
+
+        val backBtn: View = findViewById(R.id.backBtn)
+        backBtn.setOnClickListener {
             finish()
         }
     }

@@ -3,6 +3,7 @@ package com.anasfarooq.i210813
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.constraintlayout.widget.ConstraintLayout
 
@@ -22,6 +23,18 @@ class AllChatsActivity : AppCompatActivity() {
         searchBtn.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
+            finish()
+        }
+
+        val accountBtn: ImageView = findViewById(R.id.accountBtn)
+        accountBtn.setOnClickListener {
+            val intent = Intent(this, MyProfileActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
+        val backBtn: View = findViewById(R.id.backBtn)
+        backBtn.setOnClickListener {
             finish()
         }
 

@@ -150,7 +150,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/sendBtn"
+            android:id="@+id/verifyBtn"
             android:layout_width="160dp"
             android:layout_height="35dp"
             android:background="@drawable/btn_style"

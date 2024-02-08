@@ -14,7 +14,7 @@ class LoginActivity : AppCompatActivity() {
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
 
-        val loginBtn: TextView = findViewById(R.id.loginBtn)
+        val loginBtn: Button = findViewById(R.id.loginBtn)
 
         loginBtn.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
