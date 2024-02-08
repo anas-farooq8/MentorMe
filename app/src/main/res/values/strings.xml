@@ -71,4 +71,7 @@
     <string name="education">Education</string>
     <string name="recent_searches">Recent Searches</string>
     <string name="type_something">Type something ...</string>
+    <string name="chats">Chats</string>
+    <string name="my_community">My Community</string>
+    <string name="all_messages">All Messages</string>
 </resources>
