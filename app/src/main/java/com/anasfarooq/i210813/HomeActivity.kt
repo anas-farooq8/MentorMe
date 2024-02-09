@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.cardview.widget.CardView
 
 class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+
+        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
 
         val searchBtn: ImageView = findViewById(R.id.searchBtn)
         searchBtn.setOnClickListener {
@@ -35,6 +38,18 @@ class HomeActivity : AppCompatActivity() {
         val notificationBtn: ImageView = findViewById(R.id.notificationBtn)
         notificationBtn.setOnClickListener {
             val intent = Intent(this, NotificationActivity::class.java)
+            startActivity(intent)
+        }
+
+        val addMentorBtn: ImageView = findViewById(R.id.addMentorBtn)
+        addMentorBtn.setOnClickListener {
+            val intent = Intent(this, AddMentorActivity::class.java)
+            startActivity(intent)
+        }
+
+        val mentor1: CardView = findViewById(R.id.mentor1)
+        mentor1.setOnClickListener {
+            val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
 

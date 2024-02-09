@@ -12,6 +12,8 @@ class AllChatsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_all_chats)
 
+        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+
         val homeBtn: ImageView = findViewById(R.id.homeBtn)
         homeBtn.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
@@ -31,6 +33,12 @@ class AllChatsActivity : AppCompatActivity() {
             val intent = Intent(this, MyProfileActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        val addMentorBtn: ImageView = findViewById(R.id.addMentorBtn)
+        addMentorBtn.setOnClickListener {
+            val intent = Intent(this, AddMentorActivity::class.java)
+            startActivity(intent)
         }
 
         val backBtn: View = findViewById(R.id.backBtn)

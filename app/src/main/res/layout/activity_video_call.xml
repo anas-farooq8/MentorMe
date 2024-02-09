@@ -96,14 +96,14 @@
             android:padding="8dp"
             android:src="@drawable/ic_repeat"
             app:layout_constraintBottom_toBottomOf="@+id/speaker"
-            app:layout_constraintEnd_toStartOf="@+id/close"
+            app:layout_constraintEnd_toStartOf="@+id/endCallBtn"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/speaker"
             app:layout_constraintTop_toTopOf="@+id/speaker"
             android:importantForAccessibility="no" />
 
         <ImageView
-            android:id="@+id/close"
+            android:id="@+id/endCallBtn"
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:background="@drawable/circle_red"

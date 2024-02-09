@@ -3,6 +3,7 @@ package com.anasfarooq.i210813
 import android.icu.util.Calendar
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.CalendarView
 import android.widget.Toast
 
@@ -11,7 +12,12 @@ class BookSessionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_book_session)
 
-        //window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+
+        val backBtn: View = findViewById(R.id.backBtn)
+        backBtn.setOnClickListener {
+            finish()
+        }
 
         val calendarView = findViewById<CalendarView>(R.id.calendarView)
         calendarView.setOnDateChangeListener { view, year, month, dayOfMonth ->

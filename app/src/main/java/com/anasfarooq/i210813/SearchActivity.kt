@@ -12,6 +12,8 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
+        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+
 
         val homeBtn: ImageView = findViewById(R.id.homeBtn)
         homeBtn.setOnClickListener {
@@ -37,6 +39,12 @@ class SearchActivity : AppCompatActivity() {
         val searchBtn: EditText = findViewById(R.id.searchField)
         searchBtn.setOnClickListener {
             val intent = Intent(this, SearchResultActivity::class.java)
+            startActivity(intent)
+        }
+
+        val addMentorBtn: ImageView = findViewById(R.id.addMentorBtn)
+        addMentorBtn.setOnClickListener {
+            val intent = Intent(this, AddMentorActivity::class.java)
             startActivity(intent)
         }
 

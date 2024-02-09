@@ -237,6 +237,7 @@
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/mentor1"
                         android:layout_width="180dp"
                         android:layout_height="180dp"
                         android:layout_marginEnd="8dp"
@@ -1210,7 +1211,7 @@
         app:srcCompat="@drawable/circle2" />
 
     <ImageView
-        android:id="@+id/white_circle"
+        android:id="@+id/addMentorBtn"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginTop="8dp"
@@ -1227,10 +1228,10 @@
         android:scaleY="2"
         android:text="+"
         android:textColor="#157177"
-        app:layout_constraintBottom_toBottomOf="@+id/white_circle"
-        app:layout_constraintEnd_toEndOf="@+id/white_circle"
-        app:layout_constraintStart_toStartOf="@+id/white_circle"
-        app:layout_constraintTop_toTopOf="@+id/white_circle" />
+        app:layout_constraintBottom_toBottomOf="@+id/addMentorBtn"
+        app:layout_constraintEnd_toEndOf="@+id/addMentorBtn"
+        app:layout_constraintStart_toStartOf="@+id/addMentorBtn"
+        app:layout_constraintTop_toTopOf="@+id/addMentorBtn" />
 
     <TextView
         android:id="@+id/searchIcon"

@@ -65,13 +65,13 @@
             android:layout_height="32dp"
             android:layout_marginEnd="16dp"
             android:importantForAccessibility="no"
-            app:layout_constraintBottom_toBottomOf="@+id/video"
-            app:layout_constraintEnd_toStartOf="@+id/video"
-            app:layout_constraintTop_toTopOf="@+id/video"
+            app:layout_constraintBottom_toBottomOf="@+id/videoBtn"
+            app:layout_constraintEnd_toStartOf="@+id/videoBtn"
+            app:layout_constraintTop_toTopOf="@+id/videoBtn"
             app:srcCompat="@drawable/ic_call_white" />
 
         <ImageView
-            android:id="@+id/video"
+            android:id="@+id/videoBtn"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="32dp"
@@ -379,11 +379,11 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white"
                     android:textSize="15sp"
-                    app:layout_constraintEnd_toStartOf="@id/iconAfter1"
+                    app:layout_constraintEnd_toStartOf="@id/cameraBtn"
                     app:layout_constraintStart_toEndOf="@id/iconBefore2" />
 
                 <ImageView
-                    android:id="@+id/iconAfter1"
+                    android:id="@+id/cameraBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"
@@ -442,7 +442,7 @@
             app:srcCompat="@drawable/circle2" />
 
         <ImageView
-            android:id="@+id/white_circle"
+            android:id="@+id/addMentorBtn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginTop="8dp"
@@ -460,10 +460,10 @@
             android:scaleY="2"
             android:text="+"
             android:textColor="#157177"
-            app:layout_constraintBottom_toBottomOf="@+id/white_circle"
-            app:layout_constraintEnd_toEndOf="@+id/white_circle"
-            app:layout_constraintStart_toStartOf="@+id/white_circle"
-            app:layout_constraintTop_toTopOf="@+id/white_circle" />
+            app:layout_constraintBottom_toBottomOf="@+id/addMentorBtn"
+            app:layout_constraintEnd_toEndOf="@+id/addMentorBtn"
+            app:layout_constraintStart_toStartOf="@+id/addMentorBtn"
+            app:layout_constraintTop_toTopOf="@+id/addMentorBtn" />
 
         <TextView
             android:id="@+id/searchIcon"

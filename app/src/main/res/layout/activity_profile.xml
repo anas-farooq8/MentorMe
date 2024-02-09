@@ -258,8 +258,8 @@
             android:textAllCaps="false"
             android:textColor="#157177"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/submitBtn"
-            app:layout_constraintStart_toStartOf="@+id/submitBtn" />
+            app:layout_constraintBottom_toTopOf="@+id/bookSessionBtn"
+            app:layout_constraintStart_toStartOf="@+id/bookSessionBtn" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/joinCommunityBtn"
@@ -273,11 +273,11 @@
             android:textAllCaps="false"
             android:textColor="#157177"
             android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@+id/submitBtn"
-            app:layout_constraintEnd_toEndOf="@+id/submitBtn" />
+            app:layout_constraintBottom_toTopOf="@+id/bookSessionBtn"
+            app:layout_constraintEnd_toEndOf="@+id/bookSessionBtn" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/submitBtn"
+            android:id="@+id/bookSessionBtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="24dp"
@@ -286,7 +286,7 @@
             android:background="@drawable/btn_style"
             android:elevation="20dp"
             android:gravity="center"
-            android:text="@string/submit_feedback"
+            android:text="Book a Session"
             android:textAllCaps="false"
             android:textColor="@color/white"
             android:textStyle="bold"

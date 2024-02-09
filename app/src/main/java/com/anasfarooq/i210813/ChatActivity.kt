@@ -11,6 +11,8 @@ class ChatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+
         val homeBtn: ImageView = findViewById(R.id.homeBtn)
         homeBtn.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
@@ -23,6 +25,24 @@ class ChatActivity : AppCompatActivity() {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
             finish()
+        }
+
+        val cameraBtn: ImageView = findViewById(R.id.cameraBtn)
+        cameraBtn.setOnClickListener {
+            val intent = Intent(this, PhotoScreenActivity::class.java)
+            startActivity(intent)
+        }
+
+        val callBtn: ImageView = findViewById(R.id.callBtn)
+        callBtn.setOnClickListener {
+            val intent = Intent(this, AudioCallActivity::class.java)
+            startActivity(intent)
+        }
+
+        val videoCallBtn: ImageView = findViewById(R.id.videoCallBtn)
+        videoCallBtn.setOnClickListener {
+            val intent = Intent(this, VideoCallActivity::class.java)
+            startActivity(intent)
         }
 
         val backBtn: View = findViewById(R.id.backBtn)

@@ -11,6 +11,8 @@ class NotificationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_notification)
 
+        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+
         val backBtn: View = findViewById(R.id.backBtn)
         backBtn.setOnClickListener {
             finish()

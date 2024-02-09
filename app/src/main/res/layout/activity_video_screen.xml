@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout1">
 
         <ImageButton
-            android:id="@+id/buttonCross"
+            android:id="@+id/closeVideo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -205,13 +205,13 @@
             android:importantForAccessibility="no"
             android:padding="4dp"
             android:src="@drawable/circle5"
-            app:layout_constraintEnd_toStartOf="@+id/video"
+            app:layout_constraintEnd_toStartOf="@+id/cameraBtn"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/gallery"
             app:layout_constraintTop_toBottomOf="@+id/constraintLayout6" />
 
         <ImageView
-            android:id="@+id/video"
+            android:id="@+id/cameraBtn"
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:background="@drawable/round_audio_btn"

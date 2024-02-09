@@ -11,7 +11,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_forgot_password)
 
-        //window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
 
         val loginBtn: TextView = findViewById(R.id.loginBtn)
         loginBtn.setOnClickListener {

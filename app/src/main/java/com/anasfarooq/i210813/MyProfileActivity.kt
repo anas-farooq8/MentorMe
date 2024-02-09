@@ -12,6 +12,8 @@ class MyProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_profile)
 
+        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+
         val homeBtn: ImageView = findViewById(R.id.homeBtn)
         homeBtn.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
@@ -44,6 +46,19 @@ class MyProfileActivity : AppCompatActivity() {
             val intent = Intent(this, EditProfileActivity::class.java)
             startActivity(intent)
         }
+
+        val addMentorBtn: ImageView = findViewById(R.id.addMentorBtn)
+        addMentorBtn.setOnClickListener {
+            val intent = Intent(this, AddMentorActivity::class.java)
+            startActivity(intent)
+        }
+
+        val editProfile: ImageView = findViewById(R.id.editProfile)
+        editProfile.setOnClickListener {
+            val intent = Intent(this, ResetPasswordActivity::class.java)
+            startActivity(intent)
+        }
+
 
         val backBtn: View = findViewById(R.id.backBtn)
         backBtn.setOnClickListener {

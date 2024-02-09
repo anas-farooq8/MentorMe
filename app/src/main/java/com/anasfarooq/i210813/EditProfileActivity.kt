@@ -9,7 +9,7 @@ class EditProfileActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
 
-        //window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
+        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
 
         val backBtn: View = findViewById(R.id.backBtn)
         backBtn.setOnClickListener {

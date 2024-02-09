@@ -118,7 +118,7 @@
             android:importantForAccessibility="no" />
 
         <ImageView
-            android:id="@+id/close"
+            android:id="@+id/endCallBtn"
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:layout_marginTop="10dp"
