@@ -19,8 +19,8 @@ class LoginActivity : AppCompatActivity() {
 
         // Navigation
         binding.loginBtn.setOnClickListener {
-            var email = binding.emailText.text.toString()
-            var password = binding.passText.text.toString()
+            val email = binding.emailText.text.toString()
+            val password = binding.passText.text.toString()
 
             if(email.isEmpty()) binding.emailText.error = "Email is required"
             if(password.isEmpty()) binding.passText.error = "Password is required"

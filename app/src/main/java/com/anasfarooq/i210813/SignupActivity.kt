@@ -7,6 +7,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.anasfarooq.i210813.databinding.ActivitySignupBinding
+import com.google.firebase.database.FirebaseDatabase
 
 class SignupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,10 +25,45 @@ class SignupActivity : AppCompatActivity() {
             val city = binding.cityText.text.toString()
             val password = binding.passText.text.toString()
 
-            if(email.isNotEmpty() && password.isNotEmpty()){
+            if(email.isEmpty()) binding.emailText.error = "Email is required"
+            if(password.isEmpty()) binding.passText.error = "Password is required"
+            if(name.isEmpty()) binding.nameText.error = "Name is required"
+            if(phone.isEmpty()) binding.phoneText.error = "Phone is required"
+            if(country.isEmpty()) binding.countryText.error = "Country is required"
+            if(city.isEmpty()) binding.cityText.error = "City is required"
+
+            if(email.isNotEmpty() && password.isNotEmpty() && name.isNotEmpty() &&
+                phone.isNotEmpty() && country.isNotEmpty() && city.isNotEmpty()){
                 MainActivity.auth.createUserWithEmailAndPassword(email, password)
-                    .addOnSuccessListener {
-                        startActivity(Intent(this, HomeActivity::class.java))
+                    .addOnSuccessListener {authResult->
+                        val userId = authResult.user?.uid
+                        if(userId != null) {
+                            val userMap = hashMapOf(
+                                "name" to name,
+                                "email" to email,
+                                "phone" to phone,
+                                "country" to country,
+                                "city" to city
+                            )
+
+                            val databaseReference =
+                                FirebaseDatabase.getInstance().getReference("users")
+                            databaseReference.child(userId!!).setValue(userMap)
+                                .addOnSuccessListener {
+                                    Toast.makeText(
+                                        this,
+                                        "Account created successfully!",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    startActivity(Intent(this, HomeActivity::class.java))
+                                }
+                                .addOnFailureListener {
+                                    Toast.makeText(this, it.localizedMessage, Toast.LENGTH_SHORT)
+                                        .show()
+                                }
+                        } else {
+                            Toast.makeText(this, "User ID is null", Toast.LENGTH_SHORT).show()
+                        }
                     }
                     .addOnFailureListener{
                         Toast.makeText(this, it.localizedMessage, Toast.LENGTH_SHORT).show()
