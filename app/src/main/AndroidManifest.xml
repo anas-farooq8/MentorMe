@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -21,7 +22,7 @@
         </activity>
         <activity
             android:name=".HomeActivity"
-            android:exported="true"></activity>
+            android:exported="false"/>
         <activity
             android:name=".AllChatsActivity"
             android:exported="true"></activity>

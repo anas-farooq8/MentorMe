@@ -228,12 +228,13 @@
             android:background="@drawable/input_fields"
             android:hint="@string/select_city"
             android:drawableEnd="@drawable/ic_arrow_down"
+            android:inputType="textEmailAddress"
             android:textColor="@color/black"
             android:textColorHint="@color/hint_color"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="@+id/textView10"
             app:layout_constraintStart_toStartOf="@+id/textView10"
-            app:layout_constraintTop_toTopOf="@+id/textView10" />
+            app:layout_constraintTop_toTopOf="@+id/textView10"/>
 
         <TextView
             android:id="@+id/textView11"
@@ -256,6 +257,8 @@
             android:textColor="@color/black"
             android:textColorHint="@color/hint_color"
             android:textSize="15sp"
+            android:autofillHints="password"
+            android:inputType="textPassword"
             app:layout_constraintEnd_toEndOf="@+id/textView11"
             app:layout_constraintStart_toStartOf="@+id/textView11"
             app:layout_constraintTop_toTopOf="@+id/textView11" />

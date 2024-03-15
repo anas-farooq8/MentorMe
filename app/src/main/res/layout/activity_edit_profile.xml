@@ -214,12 +214,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/profileImage"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:alpha="1"
         android:background="@drawable/circle"
         android:importantForAccessibility="no"
-        android:src="@drawable/john_cooper"
+        android:src="@drawable/ic_launcher_foreground"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

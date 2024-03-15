@@ -8,11 +8,13 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.squareup.picasso.Picasso
 
 class EditProfileActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityEditProfileBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityEditProfileBinding.inflate(layoutInflater)
+        binding = ActivityEditProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val name = binding.nameText
@@ -21,10 +23,12 @@ class EditProfileActivity : AppCompatActivity() {
         val country = binding.countryText
         val city = binding.cityText
 
+        loadProfileImage()
+
         val currentUser = MainActivity.auth.currentUser
         if (currentUser != null) {
-            MainActivity.databaseReference = FirebaseDatabase.getInstance().getReference("users")
-            MainActivity.databaseReference.child(currentUser.uid).addValueEventListener(object : ValueEventListener {
+            val databaseReference = MainActivity.firebasedatabase.getReference("users")
+            databaseReference.child(currentUser.uid).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         name.setText(snapshot.child("name").value as? String ?: "")
@@ -81,4 +85,24 @@ class EditProfileActivity : AppCompatActivity() {
             finish()
         }
     }
+
+    private fun loadProfileImage() {
+        val userId = MainActivity.auth.currentUser?.uid ?: return
+        val databaseReference = MainActivity.firebasedatabase.getReference("users").child(userId)
+
+        databaseReference.child("profileImageUrl").get().addOnSuccessListener { dataSnapshot ->
+            if (dataSnapshot.exists()) {
+                val imageUrl = dataSnapshot.value as String?
+                imageUrl?.let {
+                    Picasso.get()
+                        .load(imageUrl)
+                        .placeholder(R.drawable.ic_launcher_foreground)
+                        .error(R.drawable.circle2)
+                        .into(binding.profileImage)
+                }
+            }
+        }
+    }
+
+
 }
