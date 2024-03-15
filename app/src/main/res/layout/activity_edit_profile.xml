@@ -73,13 +73,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/nameText"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:layout_margin="20dp"
             android:layout_marginTop="20dp"
             android:autofillHints="name"
-            android:text="John Cooper"
+            android:text=""
             android:background="@drawable/input_fields"
             android:inputType="textPersonName"
             android:textColor="@color/black"
@@ -98,16 +98,16 @@
             android:text="@string/email"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/emailText"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:layout_margin="20dp"
             android:autofillHints="emailAddress"
             android:background="@drawable/input_fields"
-            android:text="john.cooper@gmail.com"
+            android:text=""
             android:inputType="textEmailAddress"
             android:textColor="@color/black"
             android:textSize="15sp"
@@ -124,16 +124,16 @@
             android:text="@string/contact_number"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText2" />
+            app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/phoneText"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:layout_margin="20dp"
             android:autofillHints="phone"
             android:background="@drawable/input_fields"
-            android:text="+92 321 2242023"
+            android:text=""
             android:inputType="phone"
             android:textColor="@color/black"
             android:textSize="15sp"
@@ -150,15 +150,15 @@
             android:text="@string/country"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText3" />
+            app:layout_constraintTop_toBottomOf="@+id/phoneText" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/countryText"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:layout_margin="20dp"
             android:background="@drawable/input_fields"
-            android:text="Pakistan"
+            android:text=""
             android:drawableEnd="@drawable/ic_arrow_down"
             android:textColor="@color/black"
             android:textSize="15sp"
@@ -175,16 +175,16 @@
             android:text="City"
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText4" />
+            app:layout_constraintTop_toBottomOf="@+id/countryText" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/cityText"
             android:layout_width="match_parent"
             android:layout_height="34dp"
             android:layout_margin="20dp"
             android:autofillHints="phone"
             android:background="@drawable/input_fields"
-            android:text="Islamabad"
+            android:text=""
             android:drawableEnd="@drawable/ic_arrow_down"
             android:textColor="@color/black"
             android:textSize="15sp"

@@ -7,12 +7,14 @@ import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.anasfarooq.i210813.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     companion object {
         lateinit var auth: FirebaseAuth
+        lateinit var databaseReference: DatabaseReference
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

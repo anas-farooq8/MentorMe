@@ -3,18 +3,18 @@ package com.anasfarooq.i210813
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.anasfarooq.i210813.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
+/*    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         MainActivity.auth.signOut()
         Toast.makeText(this, "Signed Out!", Toast.LENGTH_SHORT).show()
         finish()
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,8 +61,6 @@ class HomeActivity : AppCompatActivity() {
             val intent = Intent(this, ProfileActivity::class.java)
             startActivity(intent)
         }
-
-
 
 
         /*        val accountBtn: ImageView = findViewById(R.id.accountBtn)

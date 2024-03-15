@@ -3,7 +3,6 @@ package com.anasfarooq.i210813
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.anasfarooq.i210813.databinding.ActivitySignupBinding
@@ -46,9 +45,9 @@ class SignupActivity : AppCompatActivity() {
                                 "city" to city
                             )
 
-                            val databaseReference =
+                            MainActivity.databaseReference =
                                 FirebaseDatabase.getInstance().getReference("users")
-                            databaseReference.child(userId!!).setValue(userMap)
+                            MainActivity.databaseReference.child(userId!!).setValue(userMap)
                                 .addOnSuccessListener {
                                     Toast.makeText(
                                         this,
@@ -56,6 +55,7 @@ class SignupActivity : AppCompatActivity() {
                                         Toast.LENGTH_SHORT
                                     ).show()
                                     startActivity(Intent(this, HomeActivity::class.java))
+                                    finish()
                                 }
                                 .addOnFailureListener {
                                     Toast.makeText(this, it.localizedMessage, Toast.LENGTH_SHORT)
@@ -71,9 +71,8 @@ class SignupActivity : AppCompatActivity() {
             }
         }
 
-        val loginBtn: TextView = findViewById(R.id.loginBtn)
-        loginBtn.paintFlags = loginBtn.paintFlags or Paint.UNDERLINE_TEXT_FLAG
-        loginBtn.setOnClickListener {
+        binding.loginBtn.paintFlags = binding.loginBtn.paintFlags or Paint.UNDERLINE_TEXT_FLAG
+        binding.loginBtn.setOnClickListener {
             finish()
         }
     }
