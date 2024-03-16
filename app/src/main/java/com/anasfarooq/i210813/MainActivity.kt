@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.anasfarooq.i210813.Models.UserProfile
 import com.anasfarooq.i210813.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
@@ -19,6 +20,8 @@ class MainActivity : AppCompatActivity() {
         const val REQUEST_STORAGE_PERMISSION = 101
         const val PICK_IMAGE_REQUEST = 102
         const val PICK_VIDEO_REQUEST = 103
+
+        lateinit var currentUserInfo: UserProfile
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         auth = FirebaseAuth.getInstance()
         firebasedatabase = FirebaseDatabase.getInstance()
         binding = ActivityMainBinding.inflate(layoutInflater)
+        currentUserInfo = UserProfile("", "", "", "", "")
         setContentView(binding.root)
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)

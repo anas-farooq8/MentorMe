@@ -40,6 +40,7 @@ class SignupActivity : AppCompatActivity() {
                     putExtra("city", city)
                     putExtra("password", password)
                 }
+                finish()
                 startActivity(intent)
             }
         }

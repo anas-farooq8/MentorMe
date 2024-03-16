@@ -1,12 +1,12 @@
 package com.anasfarooq.i210813
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import com.anasfarooq.i210813.Models.UserProfile
 import com.anasfarooq.i210813.databinding.ActivityVerifyPhoneBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.PhoneAuthCredential
@@ -21,6 +21,7 @@ class VerifyPhoneActivity : AppCompatActivity() {
 
     private var secondsElapsed = 0
     private val handler = Handler(Looper.getMainLooper())
+
     private val updateTask = object : Runnable {
         override fun run() {
             // Calculate minutes and seconds from secondsElapsed
@@ -166,23 +167,11 @@ class VerifyPhoneActivity : AppCompatActivity() {
                         .addOnSuccessListener { authResult ->
                             val userId = authResult.user?.uid
                             if (userId != null) {
-                                val userMap = hashMapOf(
-                                    "name" to name,
-                                    "email" to email,
-                                    "phone" to phone,
-                                    "country" to country,
-                                    "city" to city
-                                )
+                                val user = UserProfile(name, email, phone, country, city)
 
                                 val databaseReference = MainActivity.firebasedatabase.getReference("users")
-                                databaseReference.child(userId!!).setValue(userMap)
+                                databaseReference.child(userId!!).setValue(user)
                                     .addOnSuccessListener {
-                                        Toast.makeText(
-                                            this,
-                                            "Account created successfully!",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        startActivity(Intent(this, HomeActivity::class.java))
                                         finish()
                                     }
                                     .addOnFailureListener { exception ->
@@ -203,4 +192,18 @@ class VerifyPhoneActivity : AppCompatActivity() {
                 }
             }
     }
+    override fun onStop() {
+        super.onStop()
+        handler.removeCallbacks(updateTask)
+    }
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.removeCallbacks(updateTask)
+        Toast.makeText(
+            this,
+            "Account created successfully!",
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
 }

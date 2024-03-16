@@ -12,9 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.anasfarooq.i210813.databinding.ActivityMyProfileBinding
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 import com.squareup.picasso.Picasso
 
 class MyProfileActivity : AppCompatActivity() {
@@ -77,23 +74,15 @@ class MyProfileActivity : AppCompatActivity() {
     }
 
     private fun loadProfileImage() {
-        val userId = MainActivity.auth.currentUser?.uid ?: return
-        val databaseReference = MainActivity.firebasedatabase.getReference("users").child(userId)
+        val imageUrl = MainActivity.currentUserInfo.imagePath ?: return
 
-        databaseReference.child("profileImageUrl").get().addOnSuccessListener { dataSnapshot ->
-            if (dataSnapshot.exists()) {
-                val imageUrl = dataSnapshot.value as String?
-                imageUrl?.let {
-                    Picasso.get()
-                        .load(imageUrl)
-                        .placeholder(R.drawable.ic_launcher_foreground)
-                        .error(R.drawable.circle2)
-                        .into(binding.profileImg)
-                }
-            }
-        }.addOnFailureListener {
-            Toast.makeText(this, "Failed to load profile image.", Toast.LENGTH_SHORT).show()
-        }
+        if(imageUrl.isEmpty()) return
+
+        Picasso.get()
+            .load(imageUrl)
+            .placeholder(R.drawable.ic_launcher_foreground)
+            .error(R.drawable.circle2)
+            .into(binding.profileImg)
     }
 
     private fun openGallery() {
@@ -108,6 +97,7 @@ class MyProfileActivity : AppCompatActivity() {
         databaseReference.child("profileImageUrl").setValue(imagePath)
             .addOnSuccessListener {
                 Toast.makeText(this, "Image saved successfully", Toast.LENGTH_SHORT).show()
+                MainActivity.currentUserInfo.imagePath = imagePath
                 loadProfileImage()
             }
             .addOnFailureListener {
@@ -140,40 +130,22 @@ class MyProfileActivity : AppCompatActivity() {
             // For Android 13 (API level 33) and above, use READ_MEDIA_IMAGES for more specific access
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_MEDIA_IMAGES), MainActivity.REQUEST_STORAGE_PERMISSION)
-            } else {
-                // Permission is already granted, open the gallery
-                loadProfileImage()
             }
         } else {
             // For older versions, check for READ_EXTERNAL_STORAGE permission
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), MainActivity.REQUEST_STORAGE_PERMISSION)
-            } else {
-                // Permission is already granted, open the gallery
-                loadProfileImage()
             }
         }
     }
 
     private fun loadInfo() {
-        val currentUser = MainActivity.auth.currentUser
-        if (currentUser != null) {
-            val databaseReference = MainActivity.firebasedatabase.getReference("users")
-            databaseReference.child(currentUser.uid).addValueEventListener(object :
-                ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        binding.name.setText(snapshot.child("name").value as? String ?: "")
-                        binding.location.setText(snapshot.child("city").value as? String ?: "")
-                    } else {
-                        Toast.makeText(applicationContext, "User details not found.", Toast.LENGTH_LONG).show()
-                    }
-                }
+        val name = MainActivity.currentUserInfo.name
+        val country = MainActivity.currentUserInfo.country
 
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(applicationContext, "Failed to read user details.", Toast.LENGTH_LONG).show()
-                }
-            })
-        }
+        binding.name.text = name
+        binding.location.text = country
+
+        loadProfileImage()
     }
 }

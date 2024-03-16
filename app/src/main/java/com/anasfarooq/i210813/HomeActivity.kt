@@ -75,8 +75,8 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        loadInfo()
         checkStoragePermission()
+        loadInfo()
 
         topMentorList = ArrayList()
         educationMentorList = ArrayList()
@@ -146,26 +146,8 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun loadInfo() {
-        val currentUser = MainActivity.auth.currentUser
-        if (currentUser != null) {
-            val databaseReference = MainActivity.firebasedatabase.getReference("users")
-            databaseReference.child(currentUser.uid).addValueEventListener(object :
-                ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        val name = snapshot.child("name").value as? String ?: ""
-                        val truncatedText = if (name.length > 10) name.substring(0, 10) + "…" else name
-                        binding.nameText.text = truncatedText
-
-                    } else {
-                        Toast.makeText(applicationContext, "User details not found.", Toast.LENGTH_LONG).show()
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Toast.makeText(applicationContext, "Failed to read user details.", Toast.LENGTH_LONG).show()
-                }
-            })
-        }
+        val name = MainActivity.currentUserInfo.name
+        val truncatedText = if (name.length > 10) name.substring(0, 10) + "…" else name
+        binding.nameText.text = truncatedText
     }
 }

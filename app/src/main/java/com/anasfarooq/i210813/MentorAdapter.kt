@@ -2,6 +2,7 @@ package com.anasfarooq.i210813
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ class MentorAdapter(private var list: ArrayList<Mentor>, private var context: Co
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MentorViewHolder, position: Int) {
         val mentor = list[position]
+
         holder.name.text = mentor.name
         holder.title.text = mentor.title
         holder.sessionPrice.text = "${mentor.sessionPrice}/S"
@@ -32,13 +34,13 @@ class MentorAdapter(private var list: ArrayList<Mentor>, private var context: Co
 
         // Single click listener to open Mentor Profile
         holder.mentorRow.setOnClickListener {
-/*            val intent = Intent(context, ViewChatItemActivity::class.java).apply {
-                putExtra("name", chat.name)
-                putExtra("picture", chat.pictureResId)
-                putExtra("lastMessage", chat.lastMessage)
-                putExtra("lastMessageTime", chat.lastMessageTime)
+            val intent = Intent(context, ProfileActivity::class.java).apply {
+                putExtra("name", mentor.name)
+                putExtra("title", mentor.title)
+                putExtra("description", mentor.description)
+                putExtra("imagePath", mentor.imagePath)
             }
-            context.startActivity(intent)*/
+            context.startActivity(intent)
         }
     }
 
