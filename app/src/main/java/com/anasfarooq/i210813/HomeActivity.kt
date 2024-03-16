@@ -1,11 +1,22 @@
 package com.anasfarooq.i210813
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
-import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.cardview.widget.CardView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.anasfarooq.i210813.Models.Mentor
+import com.anasfarooq.i210813.Models.MentorType
 import com.anasfarooq.i210813.databinding.ActivityHomeBinding
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 
 class HomeActivity : AppCompatActivity() {
 /*    @Deprecated("Deprecated in Java")
@@ -16,61 +27,145 @@ class HomeActivity : AppCompatActivity() {
         finish()
     }*/
 
+    private lateinit var binding: ActivityHomeBinding
+
+    private lateinit var topMentorList: ArrayList<Mentor>
+    private lateinit var educationMentorList: ArrayList<Mentor>
+    private lateinit var personalGrowthMentorList: ArrayList<Mentor>
+
+    private lateinit var topMentorAdapter: MentorAdapter
+    private lateinit var educationAdapter: MentorAdapter
+    private lateinit var personalGrowthAdapter: MentorAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityHomeBinding.inflate(layoutInflater)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
 
-        val searchBtn: ImageView = findViewById(R.id.searchBtn)
-        searchBtn.setOnClickListener {
+        binding.searchBtn.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        val chatBtn: ImageView = findViewById(R.id.chatBtn)
-        chatBtn.setOnClickListener {
+
+        binding.chatBtn.setOnClickListener {
             val intent = Intent(this, AllChatsActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        val accountBtn: ImageView = findViewById(R.id.accountBtn)
-        accountBtn.setOnClickListener {
+        binding.accountBtn.setOnClickListener {
             val intent = Intent(this, MyProfileActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        val notificationBtn: ImageView = findViewById(R.id.notificationBtn)
-        notificationBtn.setOnClickListener {
+
+        binding.notificationBtn.setOnClickListener {
             val intent = Intent(this, NotificationActivity::class.java)
             startActivity(intent)
         }
 
-        val addMentorBtn: ImageView = findViewById(R.id.addMentorBtn)
-        addMentorBtn.setOnClickListener {
+
+        binding.addMentorBtn.setOnClickListener {
             val intent = Intent(this, AddMentorActivity::class.java)
             startActivity(intent)
         }
 
-        val mentor1: CardView = findViewById(R.id.mentor1)
-        mentor1.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
-        }
+        loadInfo()
+        checkStoragePermission()
 
+        topMentorList = ArrayList()
+        educationMentorList = ArrayList()
+        personalGrowthMentorList = ArrayList()
 
-        /*        val accountBtn: ImageView = findViewById(R.id.accountBtn)
-                accountBtn.setOnClickListener {
-                    val intent = Intent(this, ::class.java)
-                    startActivity(intent)
-                    finish()
-                }*/
+        topMentorAdapter = MentorAdapter(topMentorList, this)
+        educationAdapter = MentorAdapter(educationMentorList, this)
+        personalGrowthAdapter = MentorAdapter(personalGrowthMentorList, this)
 
+        binding.topMentors.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.educationMentors.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.personalGrowthMentors.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
+        binding.topMentors.adapter = topMentorAdapter
+        binding.educationMentors.adapter = educationAdapter
+        binding.personalGrowthMentors.adapter = personalGrowthAdapter
+
+        loadMentors()
     }
 
+    private fun loadMentors() {
+        val databaseReference = MainActivity.firebasedatabase.getReference("mentors")
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                topMentorList.clear()
+                educationMentorList.clear()
+                personalGrowthMentorList.clear()
+
+                for (mentorSnapshot in snapshot.children) {
+                    val mentor = mentorSnapshot.getValue(Mentor::class.java)
+                    mentor?.let {
+                        topMentorList.add(it)
+                        when (it.type) {
+                            MentorType.Education -> educationMentorList.add(it)
+                            MentorType.PersonalGrowth -> personalGrowthMentorList.add(it)
+                            else -> ""
+                        }
+                    }
+                }
+
+                // Notify the adapters
+                topMentorAdapter.notifyDataSetChanged()
+                educationAdapter.notifyDataSetChanged()
+                personalGrowthAdapter.notifyDataSetChanged()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(applicationContext, "Failed to load mentors: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+
+    private fun checkStoragePermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            // For Android 13 (API level 33) and above, use READ_MEDIA_IMAGES for more specific access
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_MEDIA_IMAGES), MainActivity.REQUEST_STORAGE_PERMISSION)
+            }
+        } else {
+            // For older versions, check for READ_EXTERNAL_STORAGE permission
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), MainActivity.REQUEST_STORAGE_PERMISSION)
+            }
+        }
+    }
+
+    private fun loadInfo() {
+        val currentUser = MainActivity.auth.currentUser
+        if (currentUser != null) {
+            val databaseReference = MainActivity.firebasedatabase.getReference("users")
+            databaseReference.child(currentUser.uid).addValueEventListener(object :
+                ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        val name = snapshot.child("name").value as? String ?: ""
+                        val truncatedText = if (name.length > 10) name.substring(0, 10) + "…" else name
+                        binding.nameText.text = truncatedText
+
+                    } else {
+                        Toast.makeText(applicationContext, "User details not found.", Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(applicationContext, "Failed to read user details.", Toast.LENGTH_LONG).show()
+                }
+            })
+        }
+    }
 }

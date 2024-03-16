@@ -43,7 +43,7 @@
             app:layout_constraintTop_toBottomOf="@+id/backBtn" />
 
         <TextView
-            android:id="@+id/Name"
+            android:id="@+id/nameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="John Cooper"
@@ -63,7 +63,7 @@
             android:importantForAccessibility="no"
             android:padding="8dp"
             android:src="@drawable/john_cooper"
-            app:layout_constraintBottom_toBottomOf="@+id/Name"
+            app:layout_constraintBottom_toBottomOf="@+id/nameText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView13"
             app:layout_constraintVertical_bias="1.0" />
@@ -77,10 +77,10 @@
             android:background="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Name" />
+            app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
         <TextView
-            android:id="@+id/textView14"
+            android:id="@+id/titleText"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -88,7 +88,7 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:lineSpacingExtra="8sp"
-            app:layout_constraintStart_toStartOf="@+id/Name"
+            app:layout_constraintStart_toStartOf="@+id/nameText"
             app:layout_constraintTop_toBottomOf="@+id/strokeView" />
 
 
@@ -110,7 +110,7 @@
             android:text="4.8"
             android:textColor="@color/white"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/textView14"
+            app:layout_constraintBottom_toBottomOf="@+id/titleText"
             app:layout_constraintEnd_toEndOf="@+id/circleImageView"
             app:layout_constraintStart_toStartOf="@+id/circleImageView"
             app:layout_constraintTop_toBottomOf="@+id/circleImageView" />
@@ -125,7 +125,7 @@
             android:background="@android:color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView14" />
+            app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
 
         <TextView
@@ -137,11 +137,11 @@
             android:textColor="@color/white"
             android:textSize="15sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/textView14"
+            app:layout_constraintStart_toStartOf="@+id/titleText"
             app:layout_constraintTop_toBottomOf="@+id/strokeView2" />
 
         <TextView
-            android:id="@+id/desc"
+            android:id="@+id/descText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -159,7 +159,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:barrierDirection="right"
-            app:constraint_referenced_ids="textView14" />
+            app:constraint_referenced_ids="titleText" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -14,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.anasfarooq.i210813.Models.Mentor
+import com.anasfarooq.i210813.Models.MentorType
 import com.anasfarooq.i210813.databinding.ActivityAddMentorBinding
+import kotlin.random.Random
 
 class AddMentorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddMentorBinding
@@ -58,14 +60,10 @@ class AddMentorActivity : AppCompatActivity() {
 
 
         binding.uploadPhoto.setOnClickListener {
-            isImageSelected = true
-            isVideoSelected = false
             checkStoragePermission(forVideo = false)
         }
 
         binding.uploadVideo.setOnClickListener {
-            isImageSelected = false
-            isVideoSelected = true
             checkStoragePermission(forVideo = true)
         }
 
@@ -74,13 +72,23 @@ class AddMentorActivity : AppCompatActivity() {
             val description = binding.descriptionText.text.toString().trim()
             val availability = binding.availText.text.toString()
 
-            if(name.isNotEmpty() && description.isNotEmpty() && availability.isNotEmpty() && (isImageSelected || isVideoSelected)) {
+            if(name.isNotEmpty() && description.isNotEmpty() && availability.isNotEmpty() && isImageSelected) {
+                // Generating random sessionPrice, MentorType, and title
+                val sessionPrice = Random.nextInt(500, 2001) // 2001 is exclusive
+                val mentorType = MentorType.entries.toTypedArray().random()
+                val titles = listOf("UX Designer", "Software Engineer", "Product Manager", "Graphic Designer",
+                    "Data Scientist", "Web Developer", "Mobile Developer", "Game Developer", "AI Engineer",
+                    "Machine Learning Engineer", "Data Analyst", "Business Analyst", "Product Designer", "UI Designer",)
+                val title = titles.random()
+
                 val mentor = Mentor(
-                    name = binding.nameText.text.toString().trim(),
-                    description = binding.descriptionText.text.toString().trim(),
-                    availability = binding.availText.text.toString().trim(),
+                    name = name,
+                    description = description,
+                    availability = availability,
                     imagePath = imagePath,
-                    videoPath = videoPath
+                    sessionPrice = sessionPrice,
+                    type = mentorType,
+                    title = title
                 )
 
                 // Get a reference to the mentors node and push to create a unique key
@@ -100,7 +108,7 @@ class AddMentorActivity : AppCompatActivity() {
                 if(name.isEmpty()) binding.nameText.error = "Name is required"
                 if(description.isEmpty()) binding.descriptionText.error = "Description is required"
                 if(availability.isEmpty()) binding.availText.error = "Availability is required"
-                if(!isImageSelected && !isVideoSelected) Toast.makeText(this, "Select an image or a video", Toast.LENGTH_SHORT).show()
+                if(!isImageSelected) Toast.makeText(this, "Select an image", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -142,7 +150,6 @@ class AddMentorActivity : AppCompatActivity() {
             }
         }
     }
-
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

@@ -1,42 +1,36 @@
 package com.anasfarooq.i210813
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
-import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
 
 class ProfileActivity : AppCompatActivity() {
+    private lateinit var binding: ProfileActivity
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_profile)
+        binding = ProfileActivity.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
 
-        val bookSessionBtn: Button = findViewById(R.id.bookSessionBtn)
-
-        bookSessionBtn.setOnClickListener {
+        binding.bookSessionBtn.setOnClickListener {
             val intent = Intent(this, BookSessionActivity::class.java)
             startActivity(intent)
         }
 
-        val dropReviewBtn: Button = findViewById(R.id.dropReviewBtn)
-
-        dropReviewBtn.setOnClickListener {
+        binding.dropReviewBtn.setOnClickListener {
             val intent = Intent(this, ReviewActivity::class.java)
             startActivity(intent)
         }
 
-        val joinCommunityBtn: Button = findViewById(R.id.joinCommunityBtn)
-
-        joinCommunityBtn.setOnClickListener {
+        binding.joinCommunityBtn.setOnClickListener {
             val intent = Intent(this, CommunityActivity::class.java)
             startActivity(intent)
         }
 
-        val backBtn: View = findViewById(R.id.backBtn)
-        backBtn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
     }
