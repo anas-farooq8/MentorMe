@@ -1,10 +1,13 @@
 package com.anasfarooq.i210813
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.anasfarooq.i210813.Models.Mentor
+import com.anasfarooq.i210813.Models.MentorType
 import com.anasfarooq.i210813.databinding.ActivityLoginBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -32,8 +35,10 @@ class LoginActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         // Load user details and only navigate to HomeActivity after loading is complete
                         loadUserDetails {
-                            startActivity(Intent(this, HomeActivity::class.java))
-                            finish()
+                            loadMentors{
+                                startActivity(Intent(this, HomeActivity::class.java))
+                                finish()
+                            }
                         }
                     }
                     .addOnFailureListener{
@@ -84,4 +89,28 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadMentors(onDetailsLoaded: () -> Unit) {
+        val databaseReference = MainActivity.firebasedatabase.getReference("mentors")
+        databaseReference.addValueEventListener(object : ValueEventListener {
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (mentorSnapshot in snapshot.children) {
+                    val mentor = mentorSnapshot.getValue(Mentor::class.java)
+                    mentor?.let {
+                        MainActivity.topMentorList.add(it)
+                        when (it.type) {
+                            MentorType.Education -> MainActivity.educationMentorList.add(it)
+                            MentorType.PersonalGrowth -> MainActivity.personalGrowthMentorList.add(it)
+                            else -> ""
+                        }
+                    }
+                }
+                onDetailsLoaded()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(applicationContext, "Failed to load mentors: ${error.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
 }

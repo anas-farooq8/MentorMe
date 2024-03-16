@@ -6,17 +6,11 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.anasfarooq.i210813.Models.Mentor
-import com.anasfarooq.i210813.Models.MentorType
 import com.anasfarooq.i210813.databinding.ActivityHomeBinding
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.ValueEventListener
 
 class HomeActivity : AppCompatActivity() {
 /*    @Deprecated("Deprecated in Java")
@@ -28,10 +22,6 @@ class HomeActivity : AppCompatActivity() {
     }*/
 
     private lateinit var binding: ActivityHomeBinding
-
-    private lateinit var topMentorList: ArrayList<Mentor>
-    private lateinit var educationMentorList: ArrayList<Mentor>
-    private lateinit var personalGrowthMentorList: ArrayList<Mentor>
 
     private lateinit var topMentorAdapter: MentorAdapter
     private lateinit var educationAdapter: MentorAdapter
@@ -78,13 +68,9 @@ class HomeActivity : AppCompatActivity() {
         checkStoragePermission()
         loadInfo()
 
-        topMentorList = ArrayList()
-        educationMentorList = ArrayList()
-        personalGrowthMentorList = ArrayList()
-
-        topMentorAdapter = MentorAdapter(topMentorList, this)
-        educationAdapter = MentorAdapter(educationMentorList, this)
-        personalGrowthAdapter = MentorAdapter(personalGrowthMentorList, this)
+        topMentorAdapter = MentorAdapter(MainActivity.topMentorList, this)
+        educationAdapter = MentorAdapter(MainActivity.educationMentorList, this)
+        personalGrowthAdapter = MentorAdapter(MainActivity.personalGrowthMentorList, this)
 
         binding.topMentors.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
         binding.educationMentors.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
@@ -94,43 +80,11 @@ class HomeActivity : AppCompatActivity() {
         binding.educationMentors.adapter = educationAdapter
         binding.personalGrowthMentors.adapter = personalGrowthAdapter
 
-        loadMentors()
-    }
-
-    private fun loadMentors() {
-        val databaseReference = MainActivity.firebasedatabase.getReference("mentors")
-        databaseReference.addValueEventListener(object : ValueEventListener {
-            @SuppressLint("NotifyDataSetChanged")
-            override fun onDataChange(snapshot: DataSnapshot) {
-                topMentorList.clear()
-                educationMentorList.clear()
-                personalGrowthMentorList.clear()
-
-                for (mentorSnapshot in snapshot.children) {
-                    val mentor = mentorSnapshot.getValue(Mentor::class.java)
-                    mentor?.let {
-                        topMentorList.add(it)
-                        when (it.type) {
-                            MentorType.Education -> educationMentorList.add(it)
-                            MentorType.PersonalGrowth -> personalGrowthMentorList.add(it)
-                            else -> ""
-                        }
-                    }
-                }
-
-                // Notify the adapters
-                topMentorAdapter.notifyDataSetChanged()
-                educationAdapter.notifyDataSetChanged()
-                personalGrowthAdapter.notifyDataSetChanged()
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Toast.makeText(applicationContext, "Failed to load mentors: ${error.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
     }
 
 
+
+    @SuppressLint("NotifyDataSetChanged")
     private fun checkStoragePermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             // For Android 13 (API level 33) and above, use READ_MEDIA_IMAGES for more specific access

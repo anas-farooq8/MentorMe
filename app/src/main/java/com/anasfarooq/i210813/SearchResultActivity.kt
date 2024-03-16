@@ -1,31 +1,67 @@
 package com.anasfarooq.i210813
 
-import android.content.Intent
-import android.graphics.Paint
-import androidx.appcompat.app.AppCompatActivity
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.View
-import android.widget.Button
-import android.widget.LinearLayout
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.anasfarooq.i210813.Models.Mentor
+import com.anasfarooq.i210813.Models.MentorType
+import com.anasfarooq.i210813.databinding.ActivitySearchResultBinding
 
 class SearchResultActivity : AppCompatActivity() {
+    private lateinit var binding: ActivitySearchResultBinding
+    private lateinit var resultMentorList: ArrayList<Mentor>
+    private lateinit var resultMentorAdapter: SearchResultAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_search_result)
+        binding = ActivitySearchResultBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
-
-        val searchResult1: LinearLayout = findViewById(R.id.searchResult1)
-
-        searchResult1.setOnClickListener {
-            val intent = Intent(this, ProfileActivity::class.java)
-            startActivity(intent)
+        binding.backBtn.setOnClickListener {
+            finish()
         }
 
+        resultMentorList = ArrayList()
+        resultMentorAdapter = SearchResultAdapter(resultMentorList, this)
 
-        val backBtn: View = findViewById(R.id.backBtn)
-        backBtn.setOnClickListener {
-            finish()
+        binding.searchResult.layoutManager = LinearLayoutManager(this)
+        binding.searchResult.adapter = resultMentorAdapter
+
+        performSearch()
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun filterMentorsByType(mentorType: MentorType) {
+        val filteredList = MainActivity.topMentorList.filter { it.type == mentorType }
+        resultMentorList.clear()
+        resultMentorList.addAll(filteredList)
+        resultMentorAdapter.notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun filterMentorsByName(searchQuery: String) {
+        val filteredList = MainActivity.topMentorList.filter { mentor -> mentor.name.contains(searchQuery, ignoreCase = true) }
+        resultMentorList.clear()
+        resultMentorList.addAll(filteredList)
+        resultMentorAdapter.notifyDataSetChanged()
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun performSearch() {
+
+        when (intent.getStringExtra("searchType")) {
+            "text" -> {
+                val searchQuery = intent.getStringExtra("searchQuery") ?: return
+                filterMentorsByName(searchQuery)
+            }
+            "mentorType" -> {
+                val mentorTypeStr = intent.getStringExtra("mentorType") ?: return
+                val mentorType = MentorType.valueOf(mentorTypeStr)
+                filterMentorsByType(mentorType)
+            }
         }
     }
 }

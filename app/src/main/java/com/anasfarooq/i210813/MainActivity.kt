@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.anasfarooq.i210813.Models.Mentor
 import com.anasfarooq.i210813.Models.UserProfile
 import com.anasfarooq.i210813.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -22,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         const val PICK_VIDEO_REQUEST = 103
 
         lateinit var currentUserInfo: UserProfile
+        lateinit var topMentorList: ArrayList<Mentor>
+        lateinit var educationMentorList: ArrayList<Mentor>
+        lateinit var personalGrowthMentorList: ArrayList<Mentor>
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +34,9 @@ class MainActivity : AppCompatActivity() {
         firebasedatabase = FirebaseDatabase.getInstance()
         binding = ActivityMainBinding.inflate(layoutInflater)
         currentUserInfo = UserProfile("", "", "", "", "")
+        topMentorList = ArrayList()
+        educationMentorList = ArrayList()
+        personalGrowthMentorList = ArrayList()
         setContentView(binding.root)
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
