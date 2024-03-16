@@ -101,8 +101,9 @@ class EditProfileActivity : AppCompatActivity() {
                         .into(binding.profileImage)
                 }
             }
+        }.addOnFailureListener {
+            Toast.makeText(this, "Failed to load profile image.", Toast.LENGTH_SHORT).show()
         }
     }
-
 
 }

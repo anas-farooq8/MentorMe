@@ -89,13 +89,13 @@
 
 
         <FrameLayout
-            android:id="@+id/frameLayout2"
+            android:id="@+id/uploadVideo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:background="@drawable/dotted_stroke"
             android:padding="2dp"
-            app:layout_constraintEnd_toStartOf="@+id/frameLayout"
+            app:layout_constraintEnd_toStartOf="@+id/uploadPhoto"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -139,7 +139,7 @@
         </FrameLayout>
 
         <FrameLayout
-            android:id="@+id/frameLayout"
+            android:id="@+id/uploadPhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
@@ -147,7 +147,7 @@
             android:padding="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/frameLayout2"
+            app:layout_constraintStart_toEndOf="@+id/uploadVideo"
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
@@ -196,10 +196,10 @@
             android:text="@string/name"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/frameLayout2" />
+            app:layout_constraintTop_toBottomOf="@+id/uploadVideo" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/nameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -226,10 +226,10 @@
             android:text="Description"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText" />
+            app:layout_constraintTop_toBottomOf="@+id/nameText" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/descriptionText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
@@ -253,26 +253,32 @@
             android:text="Select Status"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText2" />
+            app:layout_constraintTop_toBottomOf="@+id/descriptionText" />
 
-        <EditText
-            android:id="@+id/editText5"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/availTextInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:autofillHints="phone"
-            android:background="@drawable/input_fields"
-            android:drawableEnd="@drawable/ic_arrow_down"
-            android:hint="Available"
-            android:textColor="@color/black"
-            android:textColorHint="@color/hint_color"
-            android:textSize="15sp"
+
             app:layout_constraintEnd_toEndOf="@+id/textView10"
             app:layout_constraintStart_toStartOf="@+id/textView10"
-            app:layout_constraintTop_toTopOf="@+id/textView10" />
+            app:layout_constraintTop_toTopOf="@+id/textView10"
+            tools:layout_editor_absoluteY="314dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/availText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/input_fields"
+                android:drawableEnd="@drawable/ic_arrow_down"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/submitBtn"
+            android:id="@+id/uploadBtn"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="32dp"
@@ -288,7 +294,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/editText5" />
+            app:layout_constraintTop_toBottomOf="@+id/availTextInputLayout" />
 
         <ImageView
             android:id="@+id/bottomNavBar"

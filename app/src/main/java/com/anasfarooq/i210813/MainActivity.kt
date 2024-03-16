@@ -15,6 +15,10 @@ class MainActivity : AppCompatActivity() {
     companion object {
         lateinit var auth: FirebaseAuth
         lateinit var firebasedatabase: FirebaseDatabase
+
+        const val REQUEST_STORAGE_PERMISSION = 101
+        const val PICK_IMAGE_REQUEST = 102
+        const val PICK_VIDEO_REQUEST = 103
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +35,5 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }, 1000)
-
     }
 }
