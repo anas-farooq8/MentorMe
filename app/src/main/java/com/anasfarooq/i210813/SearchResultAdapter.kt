@@ -32,6 +32,7 @@ class SearchResultAdapter(private val mentorList: ArrayList<Mentor>, private val
         // Single click listener to open Mentor Profile
         holder.profileImg.setOnClickListener {
             val intent = Intent(context, ProfileActivity::class.java).apply {
+                putExtra("id", mentor.id)
                 putExtra("name", mentor.name)
                 putExtra("title", mentor.title)
                 putExtra("description", mentor.description)

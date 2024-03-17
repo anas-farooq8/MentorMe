@@ -8,6 +8,10 @@ import com.squareup.picasso.Picasso
 
 class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
+    private var id: String? = null
+    private var name: String? = null
+    private var imagePath: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
@@ -22,7 +26,10 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.dropReviewBtn.setOnClickListener {
-            val intent = Intent(this, ReviewActivity::class.java)
+            val intent = Intent(this, ReviewActivity::class.java).apply {
+                putExtra("mentorName", name)
+                putExtra("imagePath", imagePath)
+            }
             startActivity(intent)
         }
 
@@ -38,12 +45,13 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun extractIntentData() {
         // Extract data from intent
-        val name = intent.getStringExtra("name")
+        id = intent.getStringExtra("id")
+        name = intent.getStringExtra("name")
         val title = intent.getStringExtra("title")
         val description = intent.getStringExtra("description")
-        val imagePath = intent.getStringExtra("imagePath")
+        imagePath = intent.getStringExtra("imagePath")
 
-        val truncatedText = if (name!!.length > 10) name.substring(0, 10) + "…" else name
+        val truncatedText = if (name!!.length > 10) name.toString().substring(0, 10) + "…" else name
         binding.nameText.text = truncatedText
 
         binding.titleText.text = title

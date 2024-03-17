@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.anasfarooq.i210813.Models.Mentor
 import com.anasfarooq.i210813.Models.MentorType
+import com.anasfarooq.i210813.Models.Review
 import com.anasfarooq.i210813.databinding.ActivityLoginBinding
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -33,11 +34,13 @@ class LoginActivity : AppCompatActivity() {
             if(email.isNotEmpty() && password.isNotEmpty()) {
                 MainActivity.auth.signInWithEmailAndPassword(email, password)
                     .addOnSuccessListener {
-                        // Load user details and only navigate to HomeActivity after loading is complete
+                        // Load user details, mentors and only navigate to HomeActivity after loading is complete
                         loadUserDetails {
-                            loadMentors{
-                                startActivity(Intent(this, HomeActivity::class.java))
-                                finish()
+                            loadMentors {
+                                loadReviews {
+                                    startActivity(Intent(this, HomeActivity::class.java))
+                                    finish()
+                                }
                             }
                         }
                     }
@@ -95,7 +98,10 @@ class LoginActivity : AppCompatActivity() {
             @SuppressLint("NotifyDataSetChanged")
             override fun onDataChange(snapshot: DataSnapshot) {
                 for (mentorSnapshot in snapshot.children) {
-                    val mentor = mentorSnapshot.getValue(Mentor::class.java)
+                    val mentor = mentorSnapshot.getValue(Mentor::class.java)?.apply {
+                        // Set the mentor ID to the key of the snapshot
+                        this.id = mentorSnapshot.key ?: ""
+                    }
                     mentor?.let {
                         MainActivity.topMentorList.add(it)
                         when (it.type) {
@@ -113,4 +119,30 @@ class LoginActivity : AppCompatActivity() {
             }
         })
     }
+
+    private fun loadReviews(onReviewsLoaded: () -> Unit) {
+        val currentUser = MainActivity.auth.currentUser
+        if (currentUser != null) {
+            // Reviews are stored under a 'reviews' node in the database
+            // Each review is under a sub-node named after the user's ID
+            val databaseReference = MainActivity.firebasedatabase.getReference("reviews").child(currentUser.uid)
+            databaseReference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (reviewSnapshot in snapshot.children) {
+                        val review = reviewSnapshot.getValue(Review::class.java)
+                        review?.let {
+                            MainActivity.reviewList.add(it)
+                        }
+                    }
+                    onReviewsLoaded()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(applicationContext, "Failed to load reviews: ${error.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
+
+
 }

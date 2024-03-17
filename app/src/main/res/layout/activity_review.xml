@@ -43,7 +43,7 @@
             app:layout_constraintTop_toBottomOf="@+id/backBtn" />
 
         <TextView
-            android:id="@+id/Name"
+            android:id="@+id/nameText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="John Cooper"
@@ -54,6 +54,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profileImage"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginEnd="24dp"
@@ -61,7 +62,7 @@
             android:alpha="1"
             android:background="@drawable/circle"
             android:src="@drawable/john_cooper"
-            app:layout_constraintBottom_toBottomOf="@+id/Name"
+            app:layout_constraintBottom_toBottomOf="@+id/nameText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView13"
             app:layout_constraintVertical_bias="1.0"
@@ -75,8 +76,8 @@
             android:layout_marginBottom="55dp"
             android:background="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/Name"
-            app:layout_constraintStart_toStartOf="@+id/Name" />
+            app:layout_constraintEnd_toEndOf="@+id/nameText"
+            app:layout_constraintStart_toStartOf="@+id/nameText" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -86,7 +87,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/Name"
+            app:layout_constraintStart_toStartOf="@+id/nameText"
             app:layout_constraintTop_toBottomOf="@+id/strokeView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

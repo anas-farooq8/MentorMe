@@ -35,6 +35,7 @@ class MentorAdapter(private var list: ArrayList<Mentor>, private var context: Co
         // Single click listener to open Mentor Profile
         holder.mentorRow.setOnClickListener {
             val intent = Intent(context, ProfileActivity::class.java).apply {
+                putExtra("id", mentor.id)
                 putExtra("name", mentor.name)
                 putExtra("title", mentor.title)
                 putExtra("description", mentor.description)

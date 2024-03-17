@@ -11,11 +11,13 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.anasfarooq.i210813.databinding.ActivityMyProfileBinding
 import com.squareup.picasso.Picasso
 
 class MyProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyProfileBinding
+    private lateinit var reviewAdapter: ReviewAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +73,11 @@ class MyProfileActivity : AppCompatActivity() {
         binding.backBtn.setOnClickListener {
             finish()
         }
+
+        reviewAdapter = ReviewAdapter(MainActivity.reviewList, this)
+        binding.reviewCards.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+        binding.reviewCards.adapter = reviewAdapter
+
     }
 
     private fun loadProfileImage() {

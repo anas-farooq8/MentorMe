@@ -5,6 +5,7 @@ enum class MentorType {
 }
 
 data class Mentor(
+    var id: String = "",
     val name: String = "",
     val description: String = "",
     val availability: String = "",

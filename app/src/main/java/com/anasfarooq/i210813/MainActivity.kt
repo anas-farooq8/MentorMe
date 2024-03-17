@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import com.anasfarooq.i210813.Models.Mentor
+import com.anasfarooq.i210813.Models.Review
 import com.anasfarooq.i210813.Models.UserProfile
 import com.anasfarooq.i210813.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -26,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         lateinit var topMentorList: ArrayList<Mentor>
         lateinit var educationMentorList: ArrayList<Mentor>
         lateinit var personalGrowthMentorList: ArrayList<Mentor>
+
+        lateinit var reviewList: ArrayList<Review>
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +40,7 @@ class MainActivity : AppCompatActivity() {
         topMentorList = ArrayList()
         educationMentorList = ArrayList()
         personalGrowthMentorList = ArrayList()
+        reviewList = ArrayList()
         setContentView(binding.root)
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
