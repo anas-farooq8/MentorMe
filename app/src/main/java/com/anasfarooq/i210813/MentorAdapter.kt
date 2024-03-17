@@ -40,6 +40,7 @@ class MentorAdapter(private var list: ArrayList<Mentor>, private var context: Co
                 putExtra("title", mentor.title)
                 putExtra("description", mentor.description)
                 putExtra("imagePath", mentor.imagePath)
+                putExtra("sessionPrice", mentor.sessionPrice)
             }
             context.startActivity(intent)
         }

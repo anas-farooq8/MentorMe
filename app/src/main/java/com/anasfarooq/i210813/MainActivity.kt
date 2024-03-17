@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
+import com.anasfarooq.i210813.Models.Booking
 import com.anasfarooq.i210813.Models.Mentor
 import com.anasfarooq.i210813.Models.Review
 import com.anasfarooq.i210813.Models.UserProfile
@@ -29,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var personalGrowthMentorList: ArrayList<Mentor>
 
         lateinit var reviewList: ArrayList<Review>
+        lateinit var bookings: ArrayList<Booking>
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         educationMentorList = ArrayList()
         personalGrowthMentorList = ArrayList()
         reviewList = ArrayList()
+        bookings = ArrayList()
         setContentView(binding.root)
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)

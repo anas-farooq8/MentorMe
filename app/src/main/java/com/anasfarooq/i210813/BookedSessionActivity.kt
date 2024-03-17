@@ -1,19 +1,30 @@
 package com.anasfarooq.i210813
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.anasfarooq.i210813.databinding.ActivityBookedSessionBinding
 
 class BookedSessionActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityBookedSessionBinding
+    private lateinit var bookedSessionAdapter: BookedSessionAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_booked_session)
+        binding = ActivityBookedSessionBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
 
-        val backBtn: View = findViewById(R.id.backBtn)
-        backBtn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
+
+
+        bookedSessionAdapter = BookedSessionAdapter(MainActivity.bookings, this)
+        binding.bookedSessions.layoutManager = LinearLayoutManager(this)
+        binding.bookedSessions.adapter = bookedSessionAdapter
+
+
+
     }
 }

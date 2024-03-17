@@ -11,6 +11,7 @@ class ProfileActivity : AppCompatActivity() {
     private var id: String? = null
     private var name: String? = null
     private var imagePath: String? = null
+    private var sessionPrice: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +22,12 @@ class ProfileActivity : AppCompatActivity() {
         extractIntentData()
 
         binding.bookSessionBtn.setOnClickListener {
-            val intent = Intent(this, BookSessionActivity::class.java)
+            val intent = Intent(this, BookSessionActivity::class.java).apply {
+                putExtra("id", id)
+                putExtra("mentorName", name)
+                putExtra("imagePath", imagePath)
+                putExtra("sessionPrice", sessionPrice)
+            }
             startActivity(intent)
         }
 
@@ -49,6 +55,7 @@ class ProfileActivity : AppCompatActivity() {
         name = intent.getStringExtra("name")
         val title = intent.getStringExtra("title")
         val description = intent.getStringExtra("description")
+        sessionPrice = intent.getIntExtra("sessionPrice", 0)
         imagePath = intent.getStringExtra("imagePath")
 
         val truncatedText = if (name!!.length > 10) name.toString().substring(0, 10) + "…" else name

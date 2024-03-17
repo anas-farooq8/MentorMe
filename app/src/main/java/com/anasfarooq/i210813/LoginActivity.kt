@@ -6,6 +6,7 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.anasfarooq.i210813.Models.Booking
 import com.anasfarooq.i210813.Models.Mentor
 import com.anasfarooq.i210813.Models.MentorType
 import com.anasfarooq.i210813.Models.Review
@@ -38,8 +39,10 @@ class LoginActivity : AppCompatActivity() {
                         loadUserDetails {
                             loadMentors {
                                 loadReviews {
-                                    startActivity(Intent(this, HomeActivity::class.java))
-                                    finish()
+                                    loadBookedMentors {
+                                        startActivity(Intent(this, HomeActivity::class.java))
+                                        finish()
+                                    }
                                 }
                             }
                         }
@@ -144,5 +147,28 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    private fun loadBookedMentors(onBookingsLoaded: () -> Unit) {
+        val currentUser = MainActivity.auth.currentUser
+        if (currentUser != null) {
+            // Reviews are stored under a 'reviews' node in the database
+            // Each review is under a sub-node named after the user's ID
+            val databaseReference = MainActivity.firebasedatabase.getReference("bookings").child(currentUser.uid)
+            databaseReference.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (bookingSnapshot in snapshot.children) {
+                        val booking = bookingSnapshot.getValue(Booking::class.java)
+                        booking?.let {
+                            MainActivity.bookings.add(it)
+                        }
+                    }
+                    onBookingsLoaded()
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    Toast.makeText(applicationContext, "Failed to load Bookings.: ${error.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+    }
 
 }
