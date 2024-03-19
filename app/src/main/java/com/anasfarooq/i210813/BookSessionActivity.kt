@@ -1,10 +1,16 @@
 package com.anasfarooq.i210813
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.anasfarooq.i210813.Models.Booking
 import com.anasfarooq.i210813.databinding.ActivityBookSessionBinding
 import com.google.firebase.database.DataSnapshot
@@ -21,8 +27,19 @@ class BookSessionActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
         binding = ActivityBookSessionBinding.inflate(layoutInflater)
+        setTheme(R.style.Theme_I210813)
         setContentView(binding.root)
+        // for immersive mode
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, binding.root).let{ controller ->
+            controller.hide(WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.navigationBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
         val id = intent.getStringExtra("id")
@@ -105,8 +122,9 @@ class BookSessionActivity : AppCompatActivity() {
     }
 
     private fun createBooking(userId: String, mentorId: String, mentorName: String) {
-        val booking = Booking(userId, mentorId, selectedDate!!, selectedTime!!)
         val newBookingRef = MainActivity.firebasedatabase.reference.child("bookings").child(userId).push()
+        val bookingId = newBookingRef.key ?: return
+        val booking = Booking(bookingId, userId, mentorId, selectedDate!!, selectedTime!!)
 
         if(!MainActivity.isOnline(this))
             Toast.makeText(this, "The Booking has been added locally. Connect Internet to update Online.", Toast.LENGTH_SHORT).show()

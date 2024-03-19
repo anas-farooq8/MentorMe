@@ -1,48 +1,59 @@
 package com.anasfarooq.i210813
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
-import androidx.constraintlayout.widget.ConstraintLayout
+import android.view.Window
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import com.anasfarooq.i210813.databinding.ActivityAllChatsBinding
 
 class AllChatsActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityAllChatsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_all_chats)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
+        binding = ActivityAllChatsBinding.inflate(layoutInflater)
+        setTheme(R.style.Theme_I210813)
+        setContentView(binding.root)
+        // for immersive mode
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, binding.root).let{ controller ->
+            controller.hide(WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.navigationBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
 
-        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
 
-        val homeBtn: ImageView = findViewById(R.id.homeBtn)
-        homeBtn.setOnClickListener {
+        binding.homeBtn.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        val searchBtn: ImageView = findViewById(R.id.searchBtn)
-        searchBtn.setOnClickListener {
+        binding.searchBtn.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        val accountBtn: ImageView = findViewById(R.id.accountBtn)
-        accountBtn.setOnClickListener {
+        binding.accountBtn.setOnClickListener {
             val intent = Intent(this, MyProfileActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        val addMentorBtn: ImageView = findViewById(R.id.addMentorBtn)
-        addMentorBtn.setOnClickListener {
+        binding.addMentorBtn.setOnClickListener {
             val intent = Intent(this, AddMentorActivity::class.java)
             startActivity(intent)
         }
 
-        val backBtn: View = findViewById(R.id.backBtn)
-        backBtn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
 
@@ -50,20 +61,17 @@ class AllChatsActivity : AppCompatActivity() {
 
 
 
-        val chat1: ConstraintLayout = findViewById(R.id.chat1)
-        chat1.setOnClickListener{
+        binding.chat1.setOnClickListener{
             val intent = Intent(this, ChatActivity::class.java)
             startActivity(intent)
         }
 
-        val chat2: ConstraintLayout = findViewById(R.id.chat2)
-        chat2.setOnClickListener{
+        binding.chat2.setOnClickListener{
             val intent = Intent(this, ChatActivity::class.java)
             startActivity(intent)
         }
 
-        val chat3: ConstraintLayout = findViewById(R.id.chat3)
-        chat3.setOnClickListener{
+        binding.chat3.setOnClickListener{
             val intent = Intent(this, ChatActivity::class.java)
             startActivity(intent)
         }

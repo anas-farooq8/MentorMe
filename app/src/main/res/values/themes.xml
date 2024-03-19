@@ -7,7 +7,7 @@
 
     </style>
 
-    <style name="Theme.I210813" parent="Base.Theme.I210813" />
+    <style name="Theme.I210813" parent="Theme.Material3.DayNight.NoActionBar" />
 
     <style name="Theme.I210813.Fullscreen" parent="Theme.I210813">
         <item name="android:actionBarStyle">@style/Widget.Theme.I210813.ActionBar.Fullscreen</item>

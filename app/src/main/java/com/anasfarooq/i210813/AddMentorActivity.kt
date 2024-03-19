@@ -8,11 +8,16 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.view.Window
+import android.view.WindowManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
 import com.anasfarooq.i210813.Models.Mentor
 import com.anasfarooq.i210813.Models.MentorType
 import com.anasfarooq.i210813.databinding.ActivityAddMentorBinding
@@ -29,10 +34,20 @@ class AddMentorActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
         binding = ActivityAddMentorBinding.inflate(layoutInflater)
+        setTheme(R.style.Theme_I210813)
         setContentView(binding.root)
+        // for immersive mode
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, binding.root).let{ controller ->
+            controller.hide(WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.navigationBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
 
-        // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
         // Setup dropdown options
         val statusOptions = listOf("Available", "Unavailable")
         val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, statusOptions)

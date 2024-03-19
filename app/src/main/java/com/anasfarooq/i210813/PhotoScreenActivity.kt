@@ -12,18 +12,25 @@ import android.hardware.camera2.CameraDevice
 import android.hardware.camera2.CameraManager
 import android.hardware.camera2.CaptureRequest
 import android.hardware.camera2.TotalCaptureResult
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Size
 import android.view.Surface
 import android.view.TextureView
-import android.widget.ImageView
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.WindowInsetsControllerCompat
+import com.anasfarooq.i210813.databinding.ActivityPhotoScreenBinding
 
 class PhotoScreenActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityPhotoScreenBinding
     companion object {
         const val CAMERA_REQUEST_CODE = 101
     }
@@ -38,25 +45,34 @@ class PhotoScreenActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_photo_screen)
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            window.attributes.layoutInDisplayCutoutMode = WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
+        }
+        binding = ActivityPhotoScreenBinding.inflate(layoutInflater)
+        setTheme(R.style.Theme_I210813)
+        setContentView(binding.root)
+        // for immersive mode
+        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowInsetsControllerCompat(window, binding.root).let{ controller ->
+            controller.hide(WindowInsetsCompat.Type.statusBars() or WindowInsetsCompat.Type.navigationBars())
+            controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
 
-        textureView = findViewById(R.id.cameraPreview)
+        textureView = binding.cameraPreview
         textureView.surfaceTextureListener = surfaceTextureListener
 
-        val videoBtn: ImageView = findViewById(R.id.videoBtn)
-        videoBtn.setOnClickListener {
+        binding.videoBtn.setOnClickListener {
             val intent = Intent(this, VideoScreenActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        val crossBtn: ImageView = findViewById(R.id.crossBtn)
-        crossBtn.setOnClickListener {
+        binding.crossBtn.setOnClickListener {
             finish()
         }
 
-        val clickPhotoBtn: ImageView = findViewById(R.id.clickPhotoBtn)
-        clickPhotoBtn.setOnClickListener {
+        binding.clickPhotoBtn.setOnClickListener {
             takePicture()
         }
 
@@ -185,7 +201,7 @@ class PhotoScreenActivity : AppCompatActivity() {
                 override fun onCaptureCompleted(session: CameraCaptureSession, request: CaptureRequest, result: TotalCaptureResult) {
                     super.onCaptureCompleted(session, request, result)
 
-                    val image = findViewById<ImageView>(R.id.image)
+                    val image = binding.image
                     image.setImageBitmap(textureView.bitmap)
 
                     // saving the image.

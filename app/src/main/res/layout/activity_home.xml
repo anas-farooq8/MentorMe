@@ -62,18 +62,19 @@
         app:layout_constraintStart_toEndOf="@+id/view2"
         app:layout_constraintTop_toTopOf="@+id/textView1" />
 
+
     <ImageView
         android:id="@+id/notificationBtn"
         android:layout_width="32dp"
         android:layout_height="32dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="24dp"
         android:background="@drawable/circle2"
         android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/textView2"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_bell_white" />
-
 
     <TextView
         android:id="@+id/textView3"
