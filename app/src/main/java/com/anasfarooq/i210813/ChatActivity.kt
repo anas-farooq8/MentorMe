@@ -1,54 +1,48 @@
 package com.anasfarooq.i210813
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
+import com.anasfarooq.i210813.databinding.ActivityChatBinding
 
 class ChatActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityChatBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
+        binding = ActivityChatBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
 
-        val homeBtn: ImageView = findViewById(R.id.homeBtn)
-        homeBtn.setOnClickListener {
+        binding.homeBtn.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        val searchBtn: ImageView = findViewById(R.id.searchBtn)
-        searchBtn.setOnClickListener {
+        binding.searchBtn.setOnClickListener {
             val intent = Intent(this, SearchActivity::class.java)
             startActivity(intent)
             finish()
         }
 
-        val cameraBtn: ImageView = findViewById(R.id.cameraBtn)
-        cameraBtn.setOnClickListener {
+        binding.cameraBtn.setOnClickListener {
             val intent = Intent(this, PhotoScreenActivity::class.java)
             startActivity(intent)
         }
 
-        val callBtn: ImageView = findViewById(R.id.callBtn)
-        callBtn.setOnClickListener {
+        binding.callBtn.setOnClickListener {
             val intent = Intent(this, AudioCallActivity::class.java)
             startActivity(intent)
         }
 
-        val videoCallBtn: ImageView = findViewById(R.id.videoCallBtn)
-        videoCallBtn.setOnClickListener {
+        binding.videoCallBtn.setOnClickListener {
             val intent = Intent(this, VideoCallActivity::class.java)
             startActivity(intent)
         }
 
-        val backBtn: View = findViewById(R.id.backBtn)
-        backBtn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             finish()
         }
-
     }
 }

@@ -6,6 +6,12 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-feature android:name="android.hardware.camera.any"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+
 
     <application
         android:name=".MyApplication"
@@ -42,7 +48,9 @@
             android:exported="true" />
         <activity
             android:name=".PhotoScreenActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:configChanges="orientation|screenSize">
+        </activity>
         <activity
             android:name=".SearchResultActivity"
             android:exported="true" />

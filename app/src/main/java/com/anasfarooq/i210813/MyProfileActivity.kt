@@ -58,18 +58,13 @@ class MyProfileActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.editBtn.setOnClickListener {
+        binding.editProfile.setOnClickListener {
             val intent = Intent(this, EditProfileActivity::class.java)
             startActivity(intent)
         }
 
         binding.addMentorBtn.setOnClickListener {
             val intent = Intent(this, AddMentorActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.editProfile.setOnClickListener {
-            val intent = Intent(this, ResetPasswordActivity::class.java)
             startActivity(intent)
         }
 

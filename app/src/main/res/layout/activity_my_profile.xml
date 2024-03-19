@@ -95,18 +95,6 @@
         app:layout_constraintTop_toTopOf="@+id/profileImg"
         app:srcCompat="@drawable/ic_edit" />
 
-    <ImageView
-        android:id="@+id/editBtn"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="24dp"
-        android:background="@drawable/circle2"
-        android:importantForAccessibility="no"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/background"
-        app:srcCompat="@drawable/ic_edit" />
-
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"

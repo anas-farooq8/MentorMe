@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+        app:layout_constraintBottom_toTopOf="@+id/cameraLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.05"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +23,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/cameraLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7.5"
@@ -34,6 +34,16 @@
         app:layout_constraintHeight_percent="0.75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/constraintLayout1">
+
+        <TextureView
+            android:id="@+id/cameraPreview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <ImageButton
             android:id="@+id/crossBtn"
@@ -82,7 +92,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/cameraLayout"
         app:layout_constraintVertical_bias="0.0">
 
 
@@ -190,14 +200,14 @@
             android:importantForAccessibility="no"
             android:padding="8dp"
             android:src="@drawable/ic_gallery"
-            app:layout_constraintBottom_toBottomOf="@+id/pause"
-            app:layout_constraintEnd_toStartOf="@+id/pause"
+            app:layout_constraintBottom_toBottomOf="@+id/clickPhotoBtn"
+            app:layout_constraintEnd_toStartOf="@+id/clickPhotoBtn"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/pause" />
+            app:layout_constraintTop_toTopOf="@+id/clickPhotoBtn" />
 
         <ImageView
-            android:id="@+id/pause"
+            android:id="@+id/clickPhotoBtn"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginTop="8dp"
@@ -218,11 +228,11 @@
             android:importantForAccessibility="no"
             android:padding="8dp"
             android:src="@drawable/ic_video_cam"
-            app:layout_constraintBottom_toBottomOf="@+id/pause"
+            app:layout_constraintBottom_toBottomOf="@+id/clickPhotoBtn"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/pause"
-            app:layout_constraintTop_toTopOf="@+id/pause" />
+            app:layout_constraintStart_toEndOf="@+id/clickPhotoBtn"
+            app:layout_constraintTop_toTopOf="@+id/clickPhotoBtn" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

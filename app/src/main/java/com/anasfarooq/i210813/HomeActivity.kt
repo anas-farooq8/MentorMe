@@ -6,6 +6,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.provider.MediaStore
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -19,9 +22,13 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var educationAdapter: MentorAdapter
     private lateinit var personalGrowthAdapter: MentorAdapter
 
+    private lateinit var screenshotObserver: ScreenshotContentObserver
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
+        val handler = Handler(Looper.getMainLooper())
+        screenshotObserver = ScreenshotContentObserver(handler, this)
         setContentView(binding.root)
 
         // window.setFlags(android.R.attr.windowFullscreen, android.R.attr.windowFullscreen)
@@ -108,6 +115,16 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         loadMentorsData()
+        contentResolver.registerContentObserver(
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+            true,
+            screenshotObserver
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        contentResolver.unregisterContentObserver(screenshotObserver)
     }
 
 }
