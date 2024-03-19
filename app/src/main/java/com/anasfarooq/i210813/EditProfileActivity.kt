@@ -40,11 +40,16 @@ class EditProfileActivity : AppCompatActivity() {
             )
             // Get a reference to the 'users' node in the database and the current user's child node
             val userRef = MainActivity.firebasedatabase.getReference("users").child(currentUser.uid)
+            if(!MainActivity.isOnline(this)) {
+                Toast.makeText(this, "The profile has been updated locally. Connect Internet to update Online.\"", Toast.LENGTH_SHORT).show()
+                update()
+            }
 
             // Update the child node with the new user information
             userRef.updateChildren(userMap).addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Toast.makeText(this, "Profile updated successfully!", Toast.LENGTH_SHORT).show()
+                    update()
                 } else {
                     Toast.makeText(this, "Failed to update profile: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
@@ -82,6 +87,14 @@ class EditProfileActivity : AppCompatActivity() {
         binding.cityText.setText(city)
 
         loadProfileImage()
-
     }
+
+    private fun update() {
+        MainActivity.currentUserInfo.name = binding.nameText.text.toString()
+        MainActivity.currentUserInfo.email = binding.emailText.text.toString()
+        MainActivity.currentUserInfo.phone = binding.phoneText.text.toString()
+        MainActivity.currentUserInfo.country = binding.countryText.text.toString()
+        MainActivity.currentUserInfo.city = binding.cityText.text.toString()
+    }
+
 }

@@ -46,6 +46,19 @@
         app:srcCompat="@drawable/ic_more" />
 
     <ImageView
+        android:id="@+id/logoutBtn"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/circle2"
+        app:layout_constraintBottom_toBottomOf="@+id/editProfile"
+        app:layout_constraintEnd_toStartOf="@+id/editProfile"
+        app:layout_constraintTop_toTopOf="@+id/editProfile"
+        app:srcCompat="@drawable/ic_logout"
+        android:scaleType="center"
+        android:importantForAccessibility="no" />
+
+    <ImageView
         android:id="@+id/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

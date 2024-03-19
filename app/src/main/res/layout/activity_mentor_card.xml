@@ -34,6 +34,7 @@
                 android:layout_gravity="bottom"
                 android:layout_margin="8dp"
                 app:cardBackgroundColor="@color/white"
+                android:alpha="0.8"
                 app:cardCornerRadius="20dp"
                 app:layout_constraintBottom_toBottomOf="@+id/profileImg"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -69,6 +70,7 @@
                         android:id="@+id/availability"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
                         android:drawableLeft="@drawable/available_circle"
                         android:text="Available"
                         android:textColor="#3EAD00"
@@ -97,6 +99,7 @@
                         android:layout_marginEnd="4dp"
                         android:importantForAccessibility="no"
                         android:src="@drawable/ic_heart_empty"
+                        android:tag="empty"
                         app:layout_constraintEnd_toEndOf="@+id/sessionPrice"
                         app:layout_constraintTop_toBottomOf="@+id/sessionPrice" />
 

@@ -2,12 +2,15 @@ package com.anasfarooq.i210813
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -72,6 +75,10 @@ class MyProfileActivity : AppCompatActivity() {
 
         binding.backBtn.setOnClickListener {
             finish()
+        }
+
+        binding.logoutBtn.setOnClickListener {
+            showLogoutConfirmationDialog()
         }
 
         reviewAdapter = ReviewAdapter(MainActivity.reviewList, this)
@@ -154,5 +161,29 @@ class MyProfileActivity : AppCompatActivity() {
         binding.location.text = country
 
         loadProfileImage()
+    }
+
+    private fun showLogoutConfirmationDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Logout")
+        builder.setMessage("Are you sure you want to logout?")
+        builder.setPositiveButton("Yes") { dialogInterface: DialogInterface, _: Int ->
+            // Logout the user
+            MainActivity.auth.signOut()
+
+            // Clear login status flag
+            val sharedPreferences = getSharedPreferences(MainActivity.PREFS_NAME, Context.MODE_PRIVATE)
+            sharedPreferences.edit().remove(MainActivity.LOGIN_STATUS_KEY).apply()
+
+            Toast.makeText(this, "Signed Out!", Toast.LENGTH_SHORT).show()
+            dialogInterface.dismiss()
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+        }
+        builder.setNegativeButton("No") { dialogInterface: DialogInterface, _: Int ->
+            // Dismiss the dialog
+            dialogInterface.dismiss()
+        }
+        builder.show()
     }
 }

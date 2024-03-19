@@ -22,13 +22,19 @@ class MentorAdapter(private var list: ArrayList<Mentor>, private var context: Co
 
     override fun getItemCount(): Int = list.size
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "UseCompatLoadingForDrawables")
     override fun onBindViewHolder(holder: MentorViewHolder, position: Int) {
         val mentor = list[position]
 
         holder.name.text = mentor.name
         holder.title.text = mentor.title
         holder.sessionPrice.text = "${mentor.sessionPrice}/S"
+        // Check the mentor's availability and set the drawable accordingly
+        if (mentor.availability == "Unavailable") {
+            holder.availability.setCompoundDrawablesWithIntrinsicBounds(R.drawable.unavailable_circle, 0, 0, 0)
+        } else {
+            holder.availability.setCompoundDrawablesWithIntrinsicBounds(R.drawable.available_circle, 0, 0, 0)
+        }
         holder.availability.text = mentor.availability
         Picasso.get().load(mentor.imagePath).into(holder.profileImg)
 
@@ -41,8 +47,20 @@ class MentorAdapter(private var list: ArrayList<Mentor>, private var context: Co
                 putExtra("description", mentor.description)
                 putExtra("imagePath", mentor.imagePath)
                 putExtra("sessionPrice", mentor.sessionPrice)
+                putExtra("availability", mentor.availability)
             }
             context.startActivity(intent)
+        }
+
+        holder.fav.setOnClickListener {
+            // Set initial favorite state based on some condition or default
+            if (holder.fav.tag == "empty") {
+                holder.fav.setImageResource(R.drawable.ic_heart_fill)
+                holder.fav.tag = "filled"
+            } else {
+                holder.fav.setImageResource(R.drawable.ic_heart_empty)
+                holder.fav.tag = "empty"
+            }
         }
     }
 
@@ -54,5 +72,6 @@ class MentorAdapter(private var list: ArrayList<Mentor>, private var context: Co
         var title: TextView = itemView.findViewById(R.id.title)
         var availability: TextView = itemView.findViewById(R.id.availability)
         var sessionPrice: TextView = itemView.findViewById(R.id.sessionPrice)
+        var fav: ImageView = itemView.findViewById(R.id.heartIcon)
     }
 }

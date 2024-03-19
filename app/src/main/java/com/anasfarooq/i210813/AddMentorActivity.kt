@@ -78,7 +78,7 @@ class AddMentorActivity : AppCompatActivity() {
                 val mentorType = MentorType.entries.toTypedArray().random()
                 val titles = listOf("UX Designer", "Software Engineer", "Product Manager", "Graphic Designer",
                     "Data Scientist", "Web Developer", "Mobile Developer", "Game Developer", "AI Engineer",
-                    "Machine Learning Engineer", "Data Analyst", "Business Analyst", "Product Designer", "UI Designer",)
+                    "Data Analyst", "Business Analyst", "Product Designer", "UI Designer",)
                 val title = titles.random()
 
                 val mentor = Mentor(
@@ -93,6 +93,8 @@ class AddMentorActivity : AppCompatActivity() {
 
                 // Get a reference to the mentors node and push to create a unique key
                 val databaseReference = MainActivity.firebasedatabase.getReference("mentors").push()
+                if(!MainActivity.isOnline(this))
+                    Toast.makeText(this, "The Mentor has been added locally. Connect Internet to update Online.", Toast.LENGTH_SHORT).show()
 
                 // Now set the value of the new child to the mentor object
                 databaseReference.setValue(mentor)

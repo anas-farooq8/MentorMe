@@ -172,6 +172,7 @@ class VerifyPhoneActivity : AppCompatActivity() {
                                 val databaseReference = MainActivity.firebasedatabase.getReference("users")
                                 databaseReference.child(userId!!).setValue(user)
                                     .addOnSuccessListener {
+                                        Toast.makeText(this, "Account created successfully!", Toast.LENGTH_SHORT).show()
                                         finish()
                                     }
                                     .addOnFailureListener { exception ->
@@ -196,14 +197,10 @@ class VerifyPhoneActivity : AppCompatActivity() {
         super.onStop()
         handler.removeCallbacks(updateTask)
     }
+
     override fun onDestroy() {
         super.onDestroy()
         handler.removeCallbacks(updateTask)
-        Toast.makeText(
-            this,
-            "Account created successfully!",
-            Toast.LENGTH_SHORT
-        ).show()
     }
 
 }

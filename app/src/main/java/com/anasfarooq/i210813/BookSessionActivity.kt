@@ -16,6 +16,7 @@ class BookSessionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityBookSessionBinding
     private var selectedDate: String? = null
     private var selectedTime: String? = null
+    private var availability: String? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +29,7 @@ class BookSessionActivity : AppCompatActivity() {
         val name = intent.getStringExtra("mentorName")
         val imagePath = intent.getStringExtra("imagePath")
         val sessionPrice = intent.getIntExtra("sessionPrice", 0)
+        availability = intent.getStringExtra("availability")
 
         binding.nameText.text = name
         binding.sessionPrice.text = "$sessionPrice/S"
@@ -74,6 +76,10 @@ class BookSessionActivity : AppCompatActivity() {
     }
 
     private fun checkAndBookMentor(userId: String, mentorId: String, mentorName: String) {
+        if(availability == "Unavailable") {
+            Toast.makeText(applicationContext, "Mentor is unavailable", Toast.LENGTH_SHORT).show()
+            return
+        }
         val bookingsRef = MainActivity.firebasedatabase.reference.child("bookings").child(userId)
         bookingsRef.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
@@ -101,13 +107,17 @@ class BookSessionActivity : AppCompatActivity() {
     private fun createBooking(userId: String, mentorId: String, mentorName: String) {
         val booking = Booking(userId, mentorId, selectedDate!!, selectedTime!!)
         val newBookingRef = MainActivity.firebasedatabase.reference.child("bookings").child(userId).push()
+
+        if(!MainActivity.isOnline(this))
+            Toast.makeText(this, "The Booking has been added locally. Connect Internet to update Online.", Toast.LENGTH_SHORT).show()
+
         newBookingRef.setValue(booking)
             .addOnSuccessListener {
                 Toast.makeText(applicationContext, "Mentor $mentorName booked successfully", Toast.LENGTH_SHORT).show()
+                finish()
             }
             .addOnFailureListener { exception ->
                 Toast.makeText(applicationContext, "Booking failed: ${exception.message}", Toast.LENGTH_SHORT).show()
             }
     }
-
 }

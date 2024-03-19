@@ -13,14 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.anasfarooq.i210813.databinding.ActivityHomeBinding
 
 class HomeActivity : AppCompatActivity() {
-/*    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        super.onBackPressed()
-        MainActivity.auth.signOut()
-        Toast.makeText(this, "Signed Out!", Toast.LENGTH_SHORT).show()
-        finish()
-    }*/
-
     private lateinit var binding: ActivityHomeBinding
 
     private lateinit var topMentorAdapter: MentorAdapter
@@ -104,4 +96,18 @@ class HomeActivity : AppCompatActivity() {
         val truncatedText = if (name.length > 10) name.substring(0, 10) + "…" else name
         binding.nameText.text = truncatedText
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun loadMentorsData() {
+        // After loading the data, notify your adapters
+        topMentorAdapter.notifyDataSetChanged()
+        educationAdapter.notifyDataSetChanged()
+        personalGrowthAdapter.notifyDataSetChanged()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        loadMentorsData()
+    }
+
 }

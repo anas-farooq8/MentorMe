@@ -37,8 +37,20 @@ class SearchResultAdapter(private val mentorList: ArrayList<Mentor>, private val
                 putExtra("title", mentor.title)
                 putExtra("description", mentor.description)
                 putExtra("imagePath", mentor.imagePath)
+                putExtra("sessionPrice", mentor.sessionPrice)
+                putExtra("availability", mentor.availability)
             }
             context.startActivity(intent)
+        }
+        holder.fav.setOnClickListener {
+            // Set initial favorite state based on some condition or default
+            if (holder.fav.tag == "empty") {
+                holder.fav.setImageResource(R.drawable.ic_heart_fill)
+                holder.fav.tag = "filled"
+            } else {
+                holder.fav.setImageResource(R.drawable.ic_heart_empty)
+                holder.fav.tag = "empty"
+            }
         }
     }
 
@@ -49,5 +61,6 @@ class SearchResultAdapter(private val mentorList: ArrayList<Mentor>, private val
         var title: TextView = itemView.findViewById(R.id.title)
         var availability: TextView = itemView.findViewById(R.id.availability)
         var sessionPrice: TextView = itemView.findViewById(R.id.sessionPrice)
+        var fav: ImageView = itemView.findViewById(R.id.fav)
     }
 }
