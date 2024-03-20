@@ -8,6 +8,7 @@ import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -40,6 +41,7 @@ class ChatActivity : AppCompatActivity() {
     private var reference: DatabaseReference? = null
     var chatList = ArrayList<Chat>()
     private var imagePath: String? = ""
+    private var userId: String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,8 +76,16 @@ class ChatActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        userId = intent.getStringExtra("userId")
+        val name = intent.getStringExtra("name") ?: ""
+
+        val truncatedText = if (name.length > 10) name.substring(0, 10) + "…" else name
+        binding.textView13.text = truncatedText
+
         binding.callBtn.setOnClickListener {
-            val intent = Intent(this, AudioCallActivity::class.java)
+            val intent = Intent(this, AudioCallActivity::class.java).apply {
+                putExtra("name", truncatedText)
+            }
             startActivity(intent)
         }
 
@@ -88,12 +98,6 @@ class ChatActivity : AppCompatActivity() {
             finish()
         }
 
-
-        val userId = intent.getStringExtra("userId")
-        val name = intent.getStringExtra("name") ?: ""
-
-        val truncatedText = if (name.length > 10) name.substring(0, 10) + "…" else name
-        binding.textView13.text = truncatedText
 
         firebaseUser = MainActivity.auth.currentUser
         reference = MainActivity.firebasedatabase.getReference("users").child(userId!!)
@@ -131,8 +135,9 @@ class ChatActivity : AppCompatActivity() {
                 Toast.makeText(applicationContext, "Message is empty", Toast.LENGTH_SHORT).show()
                 msg.setText("")
             }
+
             else{
-                sendMessage(firebaseUser!!.uid, userId, message)
+                sendMessage(firebaseUser!!.uid, userId.toString(), message, "no")
                 // sendNotification(userId,message)
                 msg.setText("")
             }
@@ -148,7 +153,7 @@ class ChatActivity : AppCompatActivity() {
 
         val chatRecyclerView = findViewById<RecyclerView>(R.id.userRV)
         chatRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        readMessage(firebaseUser!!.uid, userId)
+        readMessage(firebaseUser!!.uid, userId.toString())
         val chatAdapter = ChatAdapter(this, chatList)
         chatRecyclerView.adapter = chatAdapter
         if(chatList.isNotEmpty()){
@@ -169,7 +174,7 @@ class ChatActivity : AppCompatActivity() {
         val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         return dateFormat.format(Date())
     }
-    private fun sendMessage(sender: String, receiver: String, message: String){
+    private fun sendMessage(sender: String, receiver: String, message: String, isImage: String) {
         val reference = MainActivity.firebasedatabase.getReference("Chats")
         val chatId = reference.push().key
         val currentTime = getCurrentTime()
@@ -179,14 +184,15 @@ class ChatActivity : AppCompatActivity() {
             "receiverId" to receiver,
             "message" to message,
             "chatId" to chatId,
-            "time" to currentTime
+            "time" to currentTime,
+            "imagePath" to isImage
         )
 
         reference.child(chatId!!).setValue(data)
 
     }
 
-    fun readMessage(senderId: String, receiverId: String){
+    private fun readMessage(senderId: String, receiverId: String) {
         val databaseReference: DatabaseReference = MainActivity.firebasedatabase.getReference("Chats")
 
         databaseReference.addValueEventListener(object: ValueEventListener {
@@ -194,9 +200,10 @@ class ChatActivity : AppCompatActivity() {
                 chatList.clear()
                 for(dataSnapShot: DataSnapshot in snapshot.children){
                     val chat = dataSnapShot.getValue(Chat::class.java)
+                    Log.d("ChatActivity", "Chat: ${chat?.imagePath}") // Add this line to log the isImage value
                     if((chat!!.senderId == senderId && chat.receiverId == receiverId) ||
-                        (chat.senderId == receiverId && chat.receiverId == senderId))
-                    {
+                        (chat.senderId == receiverId && chat.receiverId == senderId)) {
+
                         chatList.add(chat)
                     }
                 }
@@ -217,13 +224,14 @@ class ChatActivity : AppCompatActivity() {
         })
     }
 
-/*    @Deprecated("Deprecated in Java")
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MainActivity.PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
             val imageUri = data.data
+
             imageUri?.let { uri ->
-                //saveImagePath(uri.toString())
+                sendMessage(firebaseUser!!.uid, userId.toString(), uri.toString(), "yes")
             }
         }
     }
@@ -246,7 +254,7 @@ class ChatActivity : AppCompatActivity() {
                 ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), MainActivity.REQUEST_STORAGE_PERMISSION)
             }
         }
-    }*/
+    }
 
 /*    private fun sendNotification(userId: String, message: String) {
         val databaseReference: DatabaseReference = MainActivity.firebasedatabase.getReference("users").child(userId)

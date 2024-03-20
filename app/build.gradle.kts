@@ -61,5 +61,6 @@ dependencies {
     androidTestImplementation("androidx.test:rules:1.4.0")
     implementation("com.squareup.picasso:picasso:2.71828")
     androidTestImplementation("androidx.test.espresso:espresso-intents:3.4.0")
+    implementation ("io.agora.rtc:full-sdk:4.3.0")
 
 }

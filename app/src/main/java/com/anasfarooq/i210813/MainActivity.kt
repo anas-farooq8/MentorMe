@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         const val REQUEST_STORAGE_PERMISSION = 101
         const val PICK_IMAGE_REQUEST = 102
         const val PICK_VIDEO_REQUEST = 103
+        const val PERMISSION_REQ_ID_RECORD_AUDIO = 22
 
         lateinit var currentUserInfo: UserProfile
         lateinit var topMentorList: ArrayList<Mentor>
