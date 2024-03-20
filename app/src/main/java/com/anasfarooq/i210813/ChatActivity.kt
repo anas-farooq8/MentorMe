@@ -16,6 +16,7 @@ import android.view.ViewTreeObserver
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -42,6 +43,16 @@ class ChatActivity : AppCompatActivity() {
     var chatList = ArrayList<Chat>()
     private var imagePath: String? = ""
     private var userId: String? = ""
+
+    private var getResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val imagePath = result.data?.getStringExtra("imagePath")
+            if (imagePath != null) {
+                Toast.makeText(this, "Image Path: $imagePath", Toast.LENGTH_LONG).show()
+                sendMessage(firebaseUser!!.uid, userId.toString(), imagePath, "yes")
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +84,7 @@ class ChatActivity : AppCompatActivity() {
 
         binding.cameraBtn.setOnClickListener {
             val intent = Intent(this, PhotoScreenActivity::class.java)
-            startActivity(intent)
+            getResult.launch(intent)
         }
 
         userId = intent.getStringExtra("userId")

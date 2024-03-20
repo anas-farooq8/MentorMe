@@ -1,6 +1,7 @@
 package com.anasfarooq.i210813
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -208,7 +209,16 @@ class PhotoScreenActivity : AppCompatActivity() {
                     val imageToStore = textureView.bitmap
                     imagePath = MediaStore.Images.Media.insertImage(contentResolver, imageToStore, "Title", "Description")
                     Toast.makeText(this@PhotoScreenActivity, "Image saved", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(this@PhotoScreenActivity, "Image path ${imagePath}", Toast.LENGTH_SHORT).show()
+
+                    // Prepare data intent
+                    val resultIntent = Intent().apply {
+                        // Put the string imagePath as a result
+                        putExtra("imagePath", imagePath)
+                    }
+                    // Set result with RESULT_OK signal and the data intent
+                    setResult(Activity.RESULT_OK, resultIntent)
+
+                    // Finish the activity
                     finish()
                 }
             }
