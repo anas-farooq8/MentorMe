@@ -9,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.anasfarooq.i210813.databinding.ActivityAllChatsBinding
 
 class AllChatsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAllChatsBinding
+    private lateinit var userAdapter: UserAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -57,24 +59,8 @@ class AllChatsActivity : AppCompatActivity() {
             finish()
         }
 
-
-
-
-
-        binding.chat1.setOnClickListener{
-            val intent = Intent(this, ChatActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.chat2.setOnClickListener{
-            val intent = Intent(this, ChatActivity::class.java)
-            startActivity(intent)
-        }
-
-        binding.chat3.setOnClickListener{
-            val intent = Intent(this, ChatActivity::class.java)
-            startActivity(intent)
-        }
-
+        userAdapter = UserAdapter(this, MainActivity.userList)
+        binding.userRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        binding.userRecyclerView.adapter = userAdapter
     }
 }

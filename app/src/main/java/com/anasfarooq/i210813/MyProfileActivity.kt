@@ -20,7 +20,6 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.anasfarooq.i210813.databinding.ActivityAddMentorBinding
 import com.anasfarooq.i210813.databinding.ActivityMyProfileBinding
 import com.squareup.picasso.Picasso
 
@@ -120,7 +119,7 @@ class MyProfileActivity : AppCompatActivity() {
         val userId = MainActivity.auth.currentUser?.uid ?: return
         val databaseReference = MainActivity.firebasedatabase.getReference("users").child(userId)
 
-        databaseReference.child("profileImageUrl").setValue(imagePath)
+        databaseReference.child("imagePath").setValue(imagePath)
             .addOnSuccessListener {
                 Toast.makeText(this, "Image saved successfully", Toast.LENGTH_SHORT).show()
                 MainActivity.currentUserInfo.imagePath = imagePath

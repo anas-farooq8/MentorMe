@@ -119,193 +119,11 @@
         </LinearLayout>
     </HorizontalScrollView>
 
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-
-        android:paddingVertical="4dp"
-        android:paddingHorizontal="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/chat1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circleImageView20"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/circle_yellow"
-                    android:padding="3dp"
-                    android:src="@drawable/john_cooper"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/nameTextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="John Cooper"
-                    android:textColor="#157177"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/circleImageView20"
-                    app:layout_constraintStart_toEndOf="@+id/circleImageView20"
-                    app:layout_constraintTop_toTopOf="@id/circleImageView20" />
-
-                <TextView
-                    android:id="@+id/messageTextView1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1 New Message"
-                    android:textSize="12sp"
-                    android:textColor="#A70606"
-                    app:layout_constraintEnd_toEndOf="@+id/nameTextView1"
-                    app:layout_constraintStart_toStartOf="@+id/nameTextView1"
-                    app:layout_constraintTop_toBottomOf="@id/nameTextView1" />
-
-                <View
-                    android:id="@+id/strokeView"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="1"
-                    android:background="@color/light_cyan"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/chat2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circleImageView21"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/circle_yellow"
-                    android:padding="3dp"
-                    android:src="@drawable/alex_taylor"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/nameTextView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Alex Taylor"
-                    android:textColor="#157177"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/circleImageView21"
-                    app:layout_constraintStart_toEndOf="@+id/circleImageView21"
-                    app:layout_constraintTop_toTopOf="@id/circleImageView21" />
-
-                <TextView
-                    android:id="@+id/messageTextView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="No New Message"
-                    android:textSize="12sp"
-                    android:textColor="@color/hint_color"
-                    app:layout_constraintEnd_toEndOf="@+id/nameTextView3"
-                    app:layout_constraintStart_toStartOf="@+id/nameTextView3"
-                    app:layout_constraintTop_toBottomOf="@id/nameTextView3" />
-
-                <View
-                    android:id="@+id/strokeView2"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="1"
-                    android:background="@color/light_cyan"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/chat3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/circleImageView22"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_margin="8dp"
-                    android:background="@drawable/circle_yellow"
-                    android:padding="3dp"
-                    android:src="@drawable/aurelia_pascal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/nameTextView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:text="Aurelia Pascal"
-                    android:textColor="#157177"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="@+id/circleImageView22"
-                    app:layout_constraintStart_toEndOf="@+id/circleImageView22"
-                    app:layout_constraintTop_toTopOf="@id/circleImageView22" />
-
-                <TextView
-                    android:id="@+id/messageTextView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="No New Message"
-                    android:textSize="12sp"
-                    android:textColor="@color/hint_color"
-                    app:layout_constraintEnd_toEndOf="@+id/nameTextView4"
-                    app:layout_constraintStart_toStartOf="@+id/nameTextView4"
-                    app:layout_constraintTop_toBottomOf="@id/nameTextView4" />
-
-                <View
-                    android:id="@+id/strokeView3"
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:alpha="1"
-                    android:background="@color/light_cyan"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-        </LinearLayout>
-    </ScrollView>
-
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:drawablePadding="8dp"
         android:text="@string/all_messages"
         android:textColor="#7A7F7F"
@@ -313,6 +131,17 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/backBtn"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/userRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingVertical="4dp"
+        android:paddingHorizontal="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottomNavBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <ImageView
         android:id="@+id/bottomNavBar"

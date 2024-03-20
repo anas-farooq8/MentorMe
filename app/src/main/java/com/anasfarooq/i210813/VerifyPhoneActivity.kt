@@ -4,6 +4,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
@@ -165,12 +166,18 @@ class VerifyPhoneActivity : AppCompatActivity() {
         }
     }
 
-    private fun verifyPhoneNumberWithCode(verificationId: String, code: String) {
-        val credential = PhoneAuthProvider.getCredential(verificationId, code)
-        signInWithPhoneAuthCredential(credential)
+    private fun verifyPhoneNumberWithCode(verificationId: String?, code: String) {
+        if (verificationId != null && code.isNotEmpty()) {
+            val credential = PhoneAuthProvider.getCredential(verificationId, code)
+            signInWithPhoneAuthCredential(credential)
+        } else {
+            Toast.makeText(this, "Verification ID or code is invalid", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        Log.d("VerifyPhoneActivity", "Verification failed")
+
         MainActivity.auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
@@ -185,7 +192,7 @@ class VerifyPhoneActivity : AppCompatActivity() {
                         .addOnSuccessListener { authResult ->
                             val userId = authResult.user?.uid
                             if (userId != null) {
-                                val user = UserProfile(name, email, phone, country, city)
+                                val user = UserProfile(userId, name, email, phone, country, city)
 
                                 val databaseReference = MainActivity.firebasedatabase.getReference("users")
                                 databaseReference.child(userId!!).setValue(user)
@@ -211,6 +218,7 @@ class VerifyPhoneActivity : AppCompatActivity() {
                 }
             }
     }
+
     override fun onStop() {
         super.onStop()
         handler.removeCallbacks(updateTask)

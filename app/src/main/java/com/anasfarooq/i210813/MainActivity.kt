@@ -21,8 +21,10 @@ import com.anasfarooq.i210813.Models.Review
 import com.anasfarooq.i210813.Models.UserProfile
 import com.anasfarooq.i210813.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
@@ -41,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var topMentorList: ArrayList<Mentor>
         lateinit var educationMentorList: ArrayList<Mentor>
         lateinit var personalGrowthMentorList: ArrayList<Mentor>
+        var userList = ArrayList<UserProfile>()
 
         lateinit var reviewList: ArrayList<Review>
         lateinit var bookings: ArrayList<Booking>
@@ -67,12 +70,13 @@ class MainActivity : AppCompatActivity() {
         // Initializations
         auth = FirebaseAuth.getInstance()
         firebasedatabase = FirebaseDatabase.getInstance()
-        currentUserInfo = UserProfile("", "", "", "", "")
+        currentUserInfo = UserProfile("", "", "", "", "", "")
         topMentorList = ArrayList()
         educationMentorList = ArrayList()
         personalGrowthMentorList = ArrayList()
         reviewList = ArrayList()
         bookings = ArrayList()
+        userList = ArrayList()
 
         setContentView(binding.root)
         // for immersive mode
@@ -110,7 +114,9 @@ class MainActivity : AppCompatActivity() {
             loadMentors {
                 loadReviews {
                     loadBookedMentors {
-                        onDataLoaded()
+                        loadUserChats {
+                            onDataLoaded()
+                        }
                     }
                 }
             }
@@ -133,12 +139,13 @@ class MainActivity : AppCompatActivity() {
                 ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
+                        currentUserInfo.id = snapshot.child("id").value as? String ?: ""
                         currentUserInfo.name = snapshot.child("name").value as? String ?: ""
                         currentUserInfo.email = snapshot.child("email").value as? String ?: ""
                         currentUserInfo.phone = snapshot.child("phone").value as? String ?: ""
                         currentUserInfo.country = snapshot.child("country").value as? String ?: ""
                         currentUserInfo.city = snapshot.child("city").value as? String ?: ""
-                        currentUserInfo.imagePath = snapshot.child("profileImageUrl").value as? String ?: ""
+                        currentUserInfo.imagePath = snapshot.child("imagePath").value as? String ?: ""
                         // After loading details, invoke the callback
                         onDetailsLoaded()
                     } else {
@@ -230,6 +237,30 @@ class MainActivity : AppCompatActivity() {
             })
         }
     }
+
+    private fun loadUserChats(onChatsLoaded: () -> Unit) {
+        val firebase: FirebaseUser = auth.currentUser!!
+        val databaseReference: DatabaseReference = firebasedatabase.getReference("users")
+
+        databaseReference.addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
+
+                for(dataSnapShot: DataSnapshot in snapshot.children){
+                    val user = dataSnapShot.getValue(UserProfile::class.java)
+                    if(user!!.id != firebase.uid){
+                        userList.add(user)
+                    }
+                }
+                onChatsLoaded()
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(applicationContext, "Failed to Load Chats", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
 
     private fun isLoggedIn(): Boolean {
         val sharedPreferences = getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)

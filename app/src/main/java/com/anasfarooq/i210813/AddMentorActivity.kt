@@ -87,7 +87,7 @@ class AddMentorActivity : AppCompatActivity() {
             val description = binding.descriptionText.text.toString().trim()
             val availability = binding.availText.text.toString()
 
-            if(name.isNotEmpty() && description.isNotEmpty() && availability.isNotEmpty() && isImageSelected) {
+            if(name.isNotEmpty() && description.isNotEmpty() && availability.isNotEmpty()/* && isImageSelected*/) {
                 // Generating random sessionPrice, MentorType, and title
                 val sessionPrice = Random.nextInt(500, 2001) // 2001 is exclusive
                 val mentorType = MentorType.entries.toTypedArray().random()
@@ -125,7 +125,7 @@ class AddMentorActivity : AppCompatActivity() {
                 if(name.isEmpty()) binding.nameText.error = "Name is required"
                 if(description.isEmpty()) binding.descriptionText.error = "Description is required"
                 if(availability.isEmpty()) binding.availText.error = "Availability is required"
-                if(!isImageSelected) Toast.makeText(this, "Select an image", Toast.LENGTH_SHORT).show()
+                //if(!isImageSelected) Toast.makeText(this, "Select an image", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -156,13 +156,13 @@ class AddMentorActivity : AppCompatActivity() {
             when (requestCode) {
                 MainActivity.PICK_IMAGE_REQUEST -> {
                     imagePath = selectedMediaUri.toString()
-                    isImageSelected = true
-                    isVideoSelected = false
+/*                    isImageSelected = true
+                    isVideoSelected = false*/
                 }
                 MainActivity.PICK_VIDEO_REQUEST -> {
                     videoPath = selectedMediaUri.toString()
-                    isVideoSelected = true
-                    isImageSelected = false
+/*                    isVideoSelected = true
+                    isImageSelected = false*/
                 }
             }
         }
