@@ -5,10 +5,10 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Rect
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
@@ -32,9 +32,11 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.storage.FirebaseStorage
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.UUID
 
 class ChatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityChatBinding
@@ -48,8 +50,7 @@ class ChatActivity : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val imagePath = result.data?.getStringExtra("imagePath")
             if (imagePath != null) {
-                Toast.makeText(this, "Image Path: $imagePath", Toast.LENGTH_LONG).show()
-                sendMessage(firebaseUser!!.uid, userId.toString(), imagePath, "yes")
+                sendMessage(firebaseUser!!.uid, userId.toString(), imagePath, "image", "no")
             }
         }
     }
@@ -89,6 +90,7 @@ class ChatActivity : AppCompatActivity() {
 
         userId = intent.getStringExtra("userId")
         val name = intent.getStringExtra("name") ?: ""
+        imagePath = intent.getStringExtra("imagePath")
 
         val truncatedText = if (name.length > 10) name.substring(0, 10) + "…" else name
         binding.textView13.text = truncatedText
@@ -96,6 +98,7 @@ class ChatActivity : AppCompatActivity() {
         binding.callBtn.setOnClickListener {
             val intent = Intent(this, AudioCallActivity::class.java).apply {
                 putExtra("name", truncatedText)
+                putExtra("picture", imagePath)
             }
             startActivity(intent)
         }
@@ -145,10 +148,11 @@ class ChatActivity : AppCompatActivity() {
             if(message.isEmpty()){
                 Toast.makeText(applicationContext, "Message is empty", Toast.LENGTH_SHORT).show()
                 msg.setText("")
+                return@setOnClickListener
             }
 
             else{
-                sendMessage(firebaseUser!!.uid, userId.toString(), message, "no")
+                sendMessage(firebaseUser!!.uid, userId.toString(), message, "message", "no")
                 // sendNotification(userId,message)
                 msg.setText("")
             }
@@ -158,15 +162,17 @@ class ChatActivity : AppCompatActivity() {
 
         binding.galleryBtn.setOnClickListener {
             checkStoragePermission()
-            openGallery()
+            openGalleryForImageAndVideo()
 
         }
 
         val chatRecyclerView = findViewById<RecyclerView>(R.id.userRV)
         chatRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         readMessage(firebaseUser!!.uid, userId.toString())
-        val chatAdapter = ChatAdapter(this, chatList)
-        chatRecyclerView.adapter = chatAdapter
+        val chapAdapter = ChatAdapter(this, chatList, onMessageDoubleTap = { message ->
+            binding.msgTyper.setText(message) // Assuming msgTyper is your EditText's ID
+        })
+        chatRecyclerView.adapter = chapAdapter
         if(chatList.isNotEmpty()){
             chatRecyclerView.scrollToPosition(chatList.size - 1)
         }
@@ -185,22 +191,75 @@ class ChatActivity : AppCompatActivity() {
         val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
         return dateFormat.format(Date())
     }
-    private fun sendMessage(sender: String, receiver: String, message: String, isImage: String) {
-        val reference = MainActivity.firebasedatabase.getReference("Chats")
-        val chatId = reference.push().key
-        val currentTime = getCurrentTime()
 
-        val data = hashMapOf(
-            "senderId" to sender,
-            "receiverId" to receiver,
-            "message" to message,
-            "chatId" to chatId,
-            "time" to currentTime,
-            "imagePath" to isImage
-        )
+    private fun sendMessage(sender: String, receiver: String, originalMessage: String, type: String, EditableHai: String) {
+        val chatsRef = MainActivity.firebasedatabase.getReference("Chats")
 
-        reference.child(chatId!!).setValue(data)
+        if (type == "image" || type == "video") {
+            // URI of the image or video to upload
+            val fileUri = Uri.parse(originalMessage)
+            val mediaType = if (type == "image") "images" else "videos"
+            val fileName = UUID.randomUUID().toString() // Unique file name
+            val storagePath = "chats/$mediaType/$fileName"
+            val storageReference = FirebaseStorage.getInstance().getReference(storagePath)
 
+            // Start the file upload
+            storageReference.putFile(fileUri).continueWithTask { task ->
+                if (!task.isSuccessful) {
+                    task.exception?.let { throw it }
+                }
+                storageReference.downloadUrl
+            }.addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    // Use the uploaded file URL as the message
+                    val uploadedFileUrl = task.result.toString()
+                    createOrUpdateChat(sender, receiver, uploadedFileUrl, type, EditableHai, chatsRef)
+                } else {
+                    Toast.makeText(this, "Upload failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                }
+            }
+        } else {
+            // If it's not an image or video, directly use the original message
+            createOrUpdateChat(sender, receiver, originalMessage, type, EditableHai, chatsRef)
+        }
+    }
+
+    private fun createOrUpdateChat(sender: String, receiver: String, message: String, type: String, EditableHai: String, chatsRef: DatabaseReference) {
+        chatsRef.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var editableChatFound = false
+                for (chatSnapshot in snapshot.children) {
+                    val chat = chatSnapshot.getValue(Chat::class.java)
+                    if (chat != null && chat.EditableHai == "yes" && chat.senderId == sender && chat.receiverId == receiver) {
+                        val updatedChatMap: MutableMap<String, Any> = hashMapOf(
+                            "message" to message,
+                            "EditableHai" to "no",
+                            "time" to "Edited: ${getCurrentTime()}"
+                        )
+                        chatsRef.child(chat.chatId).updateChildren(updatedChatMap)
+                        editableChatFound = true
+                        break
+                    }
+                }
+                if (!editableChatFound) {
+                    val chatId = chatsRef.push().key!!
+                    val newChatMap = hashMapOf(
+                        "senderId" to sender,
+                        "receiverId" to receiver,
+                        "message" to message,
+                        "chatId" to chatId,
+                        "time" to getCurrentTime(),
+                        "type" to type,
+                        "EditableHai" to EditableHai
+                    )
+                    chatsRef.child(chatId).setValue(newChatMap)
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Toast.makeText(this@ChatActivity, "Failed to send message: ${databaseError.message}", Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 
     private fun readMessage(senderId: String, receiverId: String) {
@@ -211,7 +270,6 @@ class ChatActivity : AppCompatActivity() {
                 chatList.clear()
                 for(dataSnapShot: DataSnapshot in snapshot.children){
                     val chat = dataSnapShot.getValue(Chat::class.java)
-                    Log.d("ChatActivity", "Chat: ${chat?.imagePath}") // Add this line to log the isImage value
                     if((chat!!.senderId == senderId && chat.receiverId == receiverId) ||
                         (chat.senderId == receiverId && chat.receiverId == senderId)) {
 
@@ -219,7 +277,10 @@ class ChatActivity : AppCompatActivity() {
                     }
                 }
 
-                val chatAdapter = ChatAdapter(this@ChatActivity, chatList)
+                val chatAdapter = ChatAdapter(this@ChatActivity, chatList, onMessageDoubleTap = { message ->
+                    binding.msgTyper.setText(message) // Assuming msgTyper is your EditText's ID
+                    var reference: DatabaseReference = MainActivity.firebasedatabase.getReference("Chats")
+                })
                 val chatRecyclerView = binding.userRV
                 chatRecyclerView.adapter = chatAdapter
 
@@ -239,33 +300,55 @@ class ChatActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MainActivity.PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            val imageUri = data.data
+            val selectedMediaUri: Uri? = data.data
+            val mimeType = contentResolver.getType(selectedMediaUri!!)
 
-            imageUri?.let { uri ->
-                sendMessage(firebaseUser!!.uid, userId.toString(), uri.toString(), "yes")
+            if (mimeType != null) {
+                if (mimeType.startsWith("image")) {
+                    // Handle image
+                    sendMessage(firebaseUser!!.uid, userId.toString(), selectedMediaUri.toString(), "image", "no")
+                } else if (mimeType.startsWith("video")) {
+                    // Handle video
+                    sendMessage(firebaseUser!!.uid, userId.toString(), selectedMediaUri.toString(), "video", "no")
+                }
             }
         }
     }
 
-    private fun openGallery() {
-        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+    private fun openGalleryForImageAndVideo() {
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).apply {
+            type = "*/*"
+            putExtra(Intent.EXTRA_MIME_TYPES, arrayOf("image/*", "video/*"))
+        }
         startActivityForResult(intent, MainActivity.PICK_IMAGE_REQUEST)
     }
 
 
     private fun checkStoragePermission() {
+        val requestCode = MainActivity.REQUEST_STORAGE_PERMISSION
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // For Android 13 (API level 33) and above, use READ_MEDIA_IMAGES for more specific access
+            // For Android 13 (API level 33) and above, request more specific access permissions
+            val missingPermissions = mutableListOf<String>()
+
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_IMAGES) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_MEDIA_IMAGES), MainActivity.REQUEST_STORAGE_PERMISSION)
+                missingPermissions.add(Manifest.permission.READ_MEDIA_IMAGES)
+            }
+
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_MEDIA_VIDEO) != PackageManager.PERMISSION_GRANTED) {
+                missingPermissions.add(Manifest.permission.READ_MEDIA_VIDEO)
+            }
+
+            if (missingPermissions.isNotEmpty()) {
+                ActivityCompat.requestPermissions(this, missingPermissions.toTypedArray(), requestCode)
             }
         } else {
             // For older versions, check for READ_EXTERNAL_STORAGE permission
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), MainActivity.REQUEST_STORAGE_PERMISSION)
+                ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), requestCode)
             }
         }
     }
+
 
 /*    private fun sendNotification(userId: String, message: String) {
         val databaseReference: DatabaseReference = MainActivity.firebasedatabase.getReference("users").child(userId)

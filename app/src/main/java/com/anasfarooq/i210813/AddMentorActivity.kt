@@ -21,6 +21,8 @@ import androidx.core.view.WindowInsetsControllerCompat
 import com.anasfarooq.i210813.Models.Mentor
 import com.anasfarooq.i210813.Models.MentorType
 import com.anasfarooq.i210813.databinding.ActivityAddMentorBinding
+import com.google.firebase.storage.FirebaseStorage
+import java.util.UUID
 import kotlin.random.Random
 
 class AddMentorActivity : AppCompatActivity() {
@@ -87,50 +89,79 @@ class AddMentorActivity : AppCompatActivity() {
             val description = binding.descriptionText.text.toString().trim()
             val availability = binding.availText.text.toString()
 
-            if(name.isNotEmpty() && description.isNotEmpty() && availability.isNotEmpty()/* && isImageSelected*/) {
-                // Generating random sessionPrice, MentorType, and title
-                val sessionPrice = Random.nextInt(500, 2001) // 2001 is exclusive
-                val mentorType = MentorType.entries.toTypedArray().random()
-                val titles = listOf("UX Designer", "Software Engineer", "Product Manager", "Graphic Designer",
-                    "Data Scientist", "Web Developer", "Mobile Developer", "Game Developer", "AI Engineer",
-                    "Data Analyst", "Business Analyst", "Product Designer", "UI Designer",)
-                val title = titles.random()
+            // Handle error state
+            if(name.isEmpty()) {
+                binding.nameText.error = "Name is required"
+                return@setOnClickListener
+            }
+            if(description.isEmpty()) {
+                binding.descriptionText.error = "Description is required"
+                return@setOnClickListener
+            }
+            if(!isImageSelected) {
+                Toast.makeText(this, "Select an image", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
-                val mentor = Mentor(
-                    name = name,
-                    description = description,
-                    availability = availability,
-                    imagePath = imagePath,
-                    sessionPrice = sessionPrice,
-                    type = mentorType,
-                    title = title
-                )
+            val uri = when {
+                isImageSelected -> Uri.parse(imagePath)
+                isVideoSelected -> Uri.parse(videoPath)
+                else -> null
+            }
+            val isMediaImage = isImageSelected
 
-                // Get a reference to the mentors node and push to create a unique key
-                val databaseReference = MainActivity.firebasedatabase.getReference("mentors").push()
-                if(!MainActivity.isOnline(this))
-                    Toast.makeText(this, "The Mentor has been added locally. Connect Internet to update Online.", Toast.LENGTH_SHORT).show()
-
-                // Now set the value of the new child to the mentor object
-                databaseReference.setValue(mentor)
-                    .addOnSuccessListener {
-                        Toast.makeText(this, "Mentor added successfully", Toast.LENGTH_SHORT).show()
-                        finish()
-                    }
-                    .addOnFailureListener { exception ->
-                        Toast.makeText(this, "Failed to add mentor: ${exception.message}", Toast.LENGTH_SHORT).show()
-                    }
-            } else {
-                // Handle error state
-                if(name.isEmpty()) binding.nameText.error = "Name is required"
-                if(description.isEmpty()) binding.descriptionText.error = "Description is required"
-                if(availability.isEmpty()) binding.availText.error = "Availability is required"
-                //if(!isImageSelected) Toast.makeText(this, "Select an image", Toast.LENGTH_SHORT).show()
+            uri?.let {
+                uploadToFirebaseStorage(uri, isMediaImage) { downloadUri ->
+                    val mentor = Mentor(
+                        name = name,
+                        description = description,
+                        availability = availability,
+                        imagePath = if (isMediaImage) downloadUri else null,
+                        videoPath = if (!isMediaImage) downloadUri else null,
+                        sessionPrice = Random.nextInt(500, 2001),
+                        type = MentorType.entries.random(),
+                        title = listOf("UX Designer", "Software Engineer").random()
+                    )
+                    saveMentor(mentor)
+                }
             }
         }
 
         binding.backBtn.setOnClickListener {
             finish()
+        }
+    }
+
+    private fun saveMentor(mentor: Mentor) {
+        val databaseReference = MainActivity.firebasedatabase.getReference("mentors").push()
+        databaseReference.setValue(mentor)
+            .addOnSuccessListener {
+                Toast.makeText(this, "Mentor added successfully", Toast.LENGTH_SHORT).show()
+                finish()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to add mentor: ${it.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun uploadToFirebaseStorage(uri: Uri?, isImage: Boolean, onSuccess: (String) -> Unit) {
+        uri ?: return
+
+        val path = if (isImage) "mentor/profile_images/${UUID.randomUUID()}.jpg" else "mentor/profile_videos/${UUID.randomUUID()}.mp4"
+        val storageReference = FirebaseStorage.getInstance().getReference(path)
+
+        storageReference.putFile(uri).continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let { throw it }
+            }
+            storageReference.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val downloadUri = task.result.toString()
+                onSuccess(downloadUri)
+            } else {
+                Toast.makeText(this, "Upload failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -152,17 +183,18 @@ class AddMentorActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (resultCode == RESULT_OK && data != null) {
-            val selectedMediaUri: Uri? = data.data
             when (requestCode) {
                 MainActivity.PICK_IMAGE_REQUEST -> {
-                    imagePath = selectedMediaUri.toString()
-/*                    isImageSelected = true
-                    isVideoSelected = false*/
+                    imagePath = data.data.toString() // Store the URI temporarily
+                    isImageSelected = true
+                    // Inform the user that the image is ready to be uploaded
+                    Toast.makeText(this, "Image selected. Click upload to proceed.", Toast.LENGTH_SHORT).show()
                 }
                 MainActivity.PICK_VIDEO_REQUEST -> {
-                    videoPath = selectedMediaUri.toString()
-/*                    isVideoSelected = true
-                    isImageSelected = false*/
+                    videoPath = data.data.toString() // Store the URI temporarily
+                    isVideoSelected = true
+                    // Inform the user that the video is ready to be uploaded
+                    Toast.makeText(this, "Video selected. Click upload to proceed.", Toast.LENGTH_SHORT).show()
                 }
             }
         }

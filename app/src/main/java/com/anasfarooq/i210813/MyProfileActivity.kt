@@ -21,7 +21,9 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.anasfarooq.i210813.databinding.ActivityMyProfileBinding
+import com.google.firebase.storage.FirebaseStorage
 import com.squareup.picasso.Picasso
+import java.util.UUID
 
 class MyProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyProfileBinding
@@ -134,9 +136,27 @@ class MyProfileActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == MainActivity.PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && data != null) {
-            val imageUri = data.data
+            val imageUri = data.data // URI of selected image
+
             imageUri?.let { uri ->
-                saveImagePath(uri.toString())
+                val storageReference = FirebaseStorage.getInstance().getReference("users/profile_images/${UUID.randomUUID()}.jpg")
+                val uploadTask = storageReference.putFile(uri)
+                uploadTask.continueWithTask { task ->
+                    if (!task.isSuccessful) {
+                        task.exception?.let {
+                            throw it
+                        }
+                    }
+                    storageReference.downloadUrl
+                }.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val downloadUri = task.result
+                        saveImagePath(downloadUri.toString()) // Save the download URL in the Realtime Database
+                    } else {
+                        // Handle failures
+                        Toast.makeText(this, "Upload failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
         }
     }

@@ -34,6 +34,7 @@ class UserAdapter(private val context: Context, private val userList: ArrayList<
             val intent = Intent(context,ChatActivity::class.java)
             intent.putExtra("userId",user.id)
             intent.putExtra("name", user.name)
+            intent.putExtra("imagePath", user.imagePath)
             context.startActivity(intent)
         }
     }

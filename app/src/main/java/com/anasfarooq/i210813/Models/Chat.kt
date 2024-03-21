@@ -6,5 +6,6 @@ data class Chat(
     val receiverId: String = "",
     var message: String = "",
     val time: String = "",
-    val imagePath: String = ""
+    val type: String = "",
+    val EditableHai: String = ""
 )

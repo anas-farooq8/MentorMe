@@ -16,6 +16,7 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import com.anasfarooq.i210813.databinding.ActivityAudioCallBinding
+import com.squareup.picasso.Picasso
 import io.agora.rtc2.ChannelMediaOptions
 import io.agora.rtc2.Constants
 import io.agora.rtc2.IRtcEngineEventHandler
@@ -105,6 +106,12 @@ class AudioCallActivity : AppCompatActivity() {
         }
 
         binding.Name.text = intent.getStringExtra("name") ?: ""
+        val imagePath = intent.getStringExtra("picture")
+
+        // Check if imagePath is null or empty
+        if (!imagePath.isNullOrEmpty()) {
+            Picasso.get().load(imagePath).into(binding.picture)
+        }
         // Initialize the timer
         handler.postDelayed(updateTask, 1000)
 

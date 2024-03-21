@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="56dp"
-            android:text="John Cooper"
+            android:text="....."
             android:textColor="@color/black"
             android:textSize="25sp"
             android:textStyle="bold"
@@ -47,13 +47,14 @@
             app:layout_constraintTop_toBottomOf="@+id/Name" />
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/picture"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:layout_marginTop="48dp"
             android:alpha="1"
             android:background="@drawable/circle"
             android:importantForAccessibility="no"
-            android:src="@drawable/john_cooper"
+            android:src="@drawable/ic_launcher_foreground"
             app:layout_constraintEnd_toEndOf="@+id/Name"
             app:layout_constraintStart_toStartOf="@+id/Name"
             app:layout_constraintTop_toBottomOf="@+id/Name" />

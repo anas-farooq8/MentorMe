@@ -18,8 +18,9 @@
 
         <ImageView
             android:id="@+id/imageViewItIs"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="200dp"
+            android:layout_height="250dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/ic_launcher_foreground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
