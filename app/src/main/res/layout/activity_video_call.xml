@@ -38,36 +38,19 @@
 
         <FrameLayout
             android:id="@+id/local_video_view_container"
-            android:layout_width="400dp"
-            android:layout_height="500dp"
-            android:layout_marginStart="1dp"
-            android:layout_marginTop="76dp"
+            android:layout_width="match_parent"
+            android:layout_height="440dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
         </FrameLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="140dp"
-            android:layout_height="160dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginBottom="24dp"
-            android:elevation="20dp"
-            app:cardBackgroundColor="#F1F1F1"
-            app:cardCornerRadius="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
 
-            <FrameLayout
-                android:id="@+id/remote_video_view_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-        </androidx.cardview.widget.CardView>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -138,5 +121,25 @@
             app:layout_constraintTop_toTopOf="@+id/pause"
             android:importantForAccessibility="no" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="140dp"
+        android:layout_height="160dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:elevation="20dp"
+        app:cardBackgroundColor="#F1F1F1"
+        app:cardCornerRadius="12dp"
+
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <FrameLayout
+            android:id="@+id/remote_video_view_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

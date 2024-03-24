@@ -57,9 +57,9 @@ class NewTestCases {
     }
 
     @Test
-    fun imageViewVisibilityTest() {
+    fun viewVisibilityTest() {
         Thread.sleep(8000)
-        // Verify that the specific ImageView in HomeActivity is displayed
+        // Verify that the specific View in HomeActivity is displayed
         onView(withId(R.id.toCheck)).check(matches(isDisplayed()))
     }
 

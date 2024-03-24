@@ -159,11 +159,11 @@
                     android:importantForAccessibility="no"
                     android:src="@drawable/ic_camera_white"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/iconAfter2"
+                    app:layout_constraintEnd_toStartOf="@id/voiceBtn"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/iconAfter2"
+                    android:id="@+id/voiceBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="8dp"

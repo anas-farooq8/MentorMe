@@ -163,6 +163,9 @@ class ChatActivity : AppCompatActivity() {
         binding.galleryBtn.setOnClickListener {
             checkStoragePermission()
             openGalleryForImageAndVideo()
+        }
+
+        binding.voiceBtn.setOnClickListener{
 
         }
 

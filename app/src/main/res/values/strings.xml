@@ -80,4 +80,7 @@
     <string name="all">All</string>
     <string name="top_mentors_for_you">Top Mentors for you</string>
     <string name="view_all">View All</string>
+    <string name="token">007eJxTYFCNT5S6tE12ht6W769eps08t6VefxqvzyajeQte8m3uW6SowGBqmmpsYWlkZG5oaWxibpFqaZxonpSSmmZhnGiSYphobO3PkNYQyMgweW82MyMDBIL4LAzJiTk5DAwAQ8geyw==</string>
+    <string name="appId">55e389227193478e93a7bdef83a4d1a3</string>
+    <string name="channel">call</string>
 </resources>
