@@ -1,6 +1,5 @@
 
 # Mentor Me
-Front end Design of a application called 'MentorMe'.
 
 ## Screenshots
 
